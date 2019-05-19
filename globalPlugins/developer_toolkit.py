@@ -1,4 +1,7 @@
+# developer_toolkit.py
 # Developer utilities for obtaining visual layout and location information for elements and controls on the screen.
+# Copyright 2019 Andy Borka. Licensed under GPL3.
+
 
 
 import globalPluginHandler
@@ -20,7 +23,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		# Get the navigator object.
 			object = api.getNavigatorObject()
 		else:
-			# Get the focused object.
+			# Get the focused object since the user didn't activate the navigator object.
 			object = api.getFocusObject()
 		
 		ui.message("Left: %s. Top: %s. Width: %s. Height: %s." % (
