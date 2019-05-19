@@ -1,6 +1,6 @@
 # developer_toolkit.py
 # Developer utilities for obtaining visual layout and location information for elements and controls on the screen.
-# Copyright 2019 Andy Borka. Licensed under GPL3.
+# Copyright 2019 Andy Borka. Licensed under GPL2.
 
 
 
