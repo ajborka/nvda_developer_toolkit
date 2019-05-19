@@ -26,8 +26,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			# Get the focused object since the user didn't activate the navigator object.
 			object = api.getFocusObject()
 		
-		ui.message("Left: %s. Top: %s. Width: %s. Height: %s." % (
-			object.location.left,
-			object.location.top,
-			object.location.width,
-			object.location.height))
+		# Sanity check for objects not visible on the active display.
+		if (object.isInForeground) == False or (
+			object.location.left == 0 and
+			object.location.top == 0 and
+			object.location.width ==0 and
+			object.location.height == 0):
+				ui.message("Object not visible.")
+		else:
+			ui.message("Left: %s. Top: %s. Width: %s. Height: %s." % (
+				object.location.left,
+				object.location.top,
+				object.location.width,
+				object.location.height))
