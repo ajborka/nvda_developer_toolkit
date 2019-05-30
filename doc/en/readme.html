@@ -4,15 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="author" content="Andy Borka">
+    <meta name="description" content="The NVDA developer toolkit addon assists blind and visually impaired developers with difficult tasks such as visual layout. No longer do blind and visually impaired developers need to rely on sighted assistants when creating visually appealing user interfaces.">
+    <meta name="keywords" content="NVDA, nvda, nvda addon, blindness, visually impaired, blind developer, blind developer tools">
     <title>Developer toolkit readme</title>
 </head>
 <body>
+    <h1>Contact information</h1>
+    <p>I am available on most blindness related programming lists such as program-l, nvda addon developers list, the nvda-dev list, and the NFB cs list. In the event I am not available there, you can reach me at ajborka (at) gmail (dot) com.</p>
+    
     <h1>Documentation</h1>
-    <p>The NVDA developer toolkit assists blind and visually impaired developers with the difficult task of creating appealing visual layouts for any software or web development project. Currently, it provides the location of objects on the visible portion of the screen. The addon provides the location in pixels. The anchor for each object is the top left corner in relation to the top left corner of the window or screen. For example, if the addon reports left: 15, top: 100, this means that the object with focus is 15 pixels from the left edge of the screen and 100 pixels from the top edge of the screen. The width and height of the control is also provided in pixels. This accounts for the content, padding, and margins of each control involved.</p>
-    <h2>Keyboard shortcuts</h2>
+    <p>The NVDA developer toolkit assists blind and visually impaired developers with the difficult task of creating appealing visual layouts for any software or web development project. It does this by providing the following about an object or control:</p>
+    <h2>Object location (in pixels)</h2>
     <ul>
-        <li>NVDA+SHIFT+NUMPAD DELETE: Obtain size and location information of the focused item or current navigator object.</li>
+        <li>left edge</li>
+        <li>top edge</li>
+        <li>right edge</li>
+        <li>bottom edge</li>
+        <li>top-left corner</li>
+        <li>top-right corner</li>
+        <li>bottom-left corner</li>
+        <li>bottom-right corner</li>
+        <li>absolute center</li>
+        <li>height</li>
+        <li>width</li>
     </ul>
+
+    <h2>Browser compatibility</h2>
+    <p>Developer tools will work with Firefox, Chrome, and Internet Explorer. However, to make developer tools work well with Chrome and Internet Explorer, you must add the following at the top of all CSS files: * {box-sizing: box-border; }. This allows Chrome and Internet Explorer to include borders, padding, and element content as part of the element's total size. Failure to heed this warning will result in random and unexpected results.</p>
+
+    <h2>Keyboard shortcuts</h2>
+    <p>The developer toolkit makes use of the keyboard combination CONTROL+WINDOWS as its modifyer key. Any shortcuts listed must include the toolkit modifyer key to work properly</p>
+
+    <h2>Desktop shortcuts (see below for laptop shortcuts)</h2>
+    <ul>
+        <li>numpad1: Obtain the location of the bottom-left corner.</li>
+        <li>numpad2: Obtain the location of the bottom edge</li>
+        <li>numpad3: Obtain the location of the bottom-right corner.</li>
+        <li>numpad4: Obtain the location of the left edge.</li>
+        <li>numpad5: Obtain the location of the absolute center.</li>
+        <li>numpad6: Obtain the location of the right edge.</li>
+        <li>numpad7: Obtain the location of the top-left corner.</li>
+        <li>numpad8: Obtain the location of the top edge</li>
+        <li>numpad9: Obtain the location of the top-right corner.</li>
+        <li>numpad plus: Obtain the height.</li>
+        <li>numpad enter: Obtain the width.</li>
+    </ul>
+
+    <h2>Laptop shortcuts</h2>
+    <ul>
+        <li>m: Obtain the location of the bottom-left corner.</li>
+        <li>comma (,): Obtain the location of the bottom edge.</li>
+        <li>period (.): Obtain the location of the bottom-right corner.</li>
+        <li>j: Obtain the location of the left edge.</li>
+        <li>k: Obtain the location of the absolute center.</li>
+        <li>l: Obtain the location of the left edge.</li>
+        <li>u: Obtain the location of the top-left corner.</li>
+        <li>i: Obtain the location of the top edge.</li>
+        <li>o: Obtain the location of the top-right corner.</li>
+        <li>[: Obtain the height.</li>
+        <li>]: Obtain the width.</li>
+    </ul>
+    
+    </body>
 
 </body>
 </html>
