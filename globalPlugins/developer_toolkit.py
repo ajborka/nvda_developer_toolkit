@@ -114,7 +114,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb(laptop):control+windows+.",])
 	def script_getBottomRightPoints(self, gesture):
 		object = api.getNavigatorObject()
-		message = "Bottom-right = Left: " + str(object.location.bottomRight.x) + ", Bottom: " + str(object.location.bottomRight.y)
+		message = "Bottom-right = Right: " + str(object.location.bottomRight.x) + ", Bottom: " + str(object.location.bottomRight.y)
 		if scriptHandler.getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif scriptHandler.getLastScriptRepeatCount() == 1:
