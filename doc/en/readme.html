@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,62 +11,51 @@
 </head>
 <body>
     <h1>Contact information</h1>
-    <p>I am available on most blindness related programming lists such as program-l, nvda addon developers list, the nvda-dev list, and the NFB cs list. In the event I am not available there, you can reach me at ajborka (at) gmail (dot) com.</p>
+    <p>You can subscribe to the developer toolkit addon list at nvda-developer-toolkit+subscribe@groups.io. There you can provide feedback, make feature requests, and make requests for support while using the addon.</p>
     
     <h1>Documentation</h1>
-    <p>The NVDA developer toolkit assists blind and visually impaired developers with the difficult task of creating appealing visual layouts for any software or web development project. It does this by providing the following about an object or control:</p>
+    <p>The NVDA developer toolkit assists blind and visually impaired developers with the difficult task of creating appealing visual layouts for any web development project. At the moment, it provides the following features.</p>
     <h2>Object location (in pixels)</h2>
     <ul>
         <li>left edge</li>
         <li>top edge</li>
         <li>right edge</li>
         <li>bottom edge</li>
-        <li>top-left corner</li>
-        <li>top-right corner</li>
-        <li>bottom-left corner</li>
-        <li>bottom-right corner</li>
-        <li>absolute center</li>
+        <li>top-left corner (coming soon)</li>
+        <li>top-right corner (coming soon)</li>
+        <li>bottom-left corner (coming soon)</li>
+        <li>bottom-right corner (coming soon)</li>
+        <li>absolute center (coming soon)</li>
         <li>height</li>
         <li>width</li>
     </ul>
-
+    
+    <h2>Navigation</h2>
+    <p>Navigate the DOM while viewing a live page in the browser with navigation features such as 'move to document root', 'next sibling', 'previous sibling', 'first child', and 'move to parent'. When moving to a new object on the page, developer toolkit will announce the provided tag and the HTML id attribute associated with the object. If an id attribute is not present, developer toolkit will use the IA2 unique ID found in the system. In the event a tag is not present such as text directly typed into a div or other tags, developer toolkit will alert you about a missing tag associated with the text. Pressing a shortcut key will have NVDA speak a summary of the focused objects. Currently, the summary includes child count, sibling count, height and width. Pressing the speak summary shortcut twice quickly will bring up a detailed report of the control in a virtual buffer. At the moment, it only shows the focused object's size and position. Other information will be added in future updates. NVDA will announce a message indicating that navigation in the DOM is not possible when outside of the page content. Such places include Firefox menus and other dialogs.</p>
+    
     <h2>Browser compatibility</h2>
-    <p>Developer tools will work with Firefox, Chrome, and Internet Explorer. However, to make developer tools work well with Chrome and Internet Explorer, you must add the following at the top of all CSS files: * {box-sizing: box-border; }. This allows Chrome and Internet Explorer to include borders, padding, and element content as part of the element's total size. Failure to heed this warning will result in random and unexpected results.</p>
+    <p>At this time, developer toolkit will only work with Firefox because it provides the most detailed information about the DOM.</p>
 
     <h2>Keyboard shortcuts</h2>
     <p>The developer toolkit makes use of the keyboard combination CONTROL+WINDOWS as its modifyer key. Any shortcuts listed must include the toolkit modifyer key to work properly</p>
 
     <h2>Desktop shortcuts (see below for laptop shortcuts)</h2>
     <ul>
-        <li>numpad1: Obtain the location of the bottom-left corner.</li>
-        <li>numpad2: Obtain the location of the bottom edge</li>
-        <li>numpad3: Obtain the location of the bottom-right corner.</li>
-        <li>numpad4: Obtain the location of the left edge.</li>
-        <li>numpad5: Obtain the location of the absolute center.</li>
-        <li>numpad6: Obtain the location of the right edge.</li>
-        <li>numpad7: Obtain the location of the top-left corner.</li>
-        <li>numpad8: Obtain the location of the top edge</li>
-        <li>numpad9: Obtain the location of the top-right corner.</li>
-        <li>numpad plus: Obtain the height.</li>
-        <li>numpad enter: Obtain the width.</li>
+                <li>numpad2: Move to the first child of the focused element.</li>
+                <li>numpad4: Move to the previous sibling of the focused element.</li>
+        <li>numpad5: Speak a short summary of the focused element. Press twice quickly to obtain a detailed report.</li>
+        <li>numpad6: Move to the next sibling of the focused element.</li>
+                <li>numpad8: Move to the parent of the focused element.</li>
+        <li>numpad9: Move to the root element of the document.</li>
     </ul>
 
     <h2>Laptop shortcuts</h2>
     <ul>
-        <li>m: Obtain the location of the bottom-left corner.</li>
-        <li>comma (,): Obtain the location of the bottom edge.</li>
-        <li>period (.): Obtain the location of the bottom-right corner.</li>
-        <li>j: Obtain the location of the left edge.</li>
-        <li>k: Obtain the location of the absolute center.</li>
-        <li>l: Obtain the location of the left edge.</li>
-        <li>u: Obtain the location of the top-left corner.</li>
-        <li>i: Obtain the location of the top edge.</li>
-        <li>o: Obtain the location of the top-right corner.</li>
-        <li>[: Obtain the height.</li>
-        <li>]: Obtain the width.</li>
+                <li>comma (,): Move to the first child of the focused element.</li>
+                <li>j: Move to the previous sibling of the focused element.</li>
+        <li>k: Speak a short summary of the focused element. Press twice quickly to obtain a detailed report.</li>
+        <li>l: Move to the next sibling of the focused element.</li>
+                <li>i: Move to the parent of the focused element.</li>
+        <li>o: Move to the root element of the document.</li>
     </ul>
-    
-    </body>
 
-</body>
-</html>
