@@ -127,6 +127,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Moves developer toolkit to the root web element in the page.
 	@script(
 		description = _("Moves developer toolkit to the root web object in the document."),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad9",
 			"kb(laptop):control+windows+o"])
 	def script_moveToRoot(self, gesture):
@@ -148,6 +149,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Moves the developer toolkit focus to the parent of the current object.
 	@script(
 		description = _("Moves developer toolkit focus to the parent of the current object."),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad8",
 			"kb(laptop):control+windows+i"])
 	def script_moveToParent(self, gesture):
@@ -162,7 +164,8 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Move to next sibling in the tree.
 	@script(
-		description = _("Moves NVDA focus to the next sibling object."),
+		description = _("Moves developer toolkit focus to the next sibling object."),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad6",
 			"kb(laptop):control+windows+l"])
 	def script_moveToNextSibling(self, gesture):
@@ -178,6 +181,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set developer toolkit focus to the previous sibling.
 	@script(
 		description = _("Set developer toolkit focus to the previous sibling."),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad4",
 			"kb(laptop):control+windows+j"])
 	def script_moveToPreviousSibling(self, gesture):
@@ -193,6 +197,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Set developer toolkit to the first child of an element.
 	@script(
 		description = _("Sets the developer toolkit focus to the first child of the focused element."),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad2",
 			"kb(laptop):control+windows+,"])
 	def script_moveToFirstChild(self, gesture):
@@ -208,6 +213,7 @@ class AppModule(appModuleHandler.AppModule):
 	# Speak the object summary or display its details
 	@script(
 		description = _('Speak an object\'s summary. Press twice quickly to display its details.'),
+		category = "Developer toolkit",
 		gestures = ["kb:control+windows+numpad5",
 			"kb(laptop):control+windows+k"])
 	def script_reportObjectDetails(self, gesture):
