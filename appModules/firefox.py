@@ -1,20 +1,41 @@
 # developer_toolkit.py
 # Web developer utilities for obtaining visual layout and location information for elements and controls on the screen. If none present, use object.IA2UniqueID.
+# Todo: 
+# * put keyboard shortcuts in gesture objects.
+# * Add keyboard shortcuts for size/locations of elements.
+# * Remove detailed report feature.
+# * Implement addon on/off toggle.
+# * Remove element summary mode.
 
 # Firefox module. See others as they become available.
 # Copyright 2019 Andy Borka. Licensed under GPL2.
 
 import appModuleHandler
+import config
+import addonHandler
 import ui
 import api
-import scriptHandler
 from scriptHandler import script
 from scriptHandler import getLastScriptRepeatCount
-import virtualBuffers.gecko_ia2
+from eventHandler import executeEvent
 from virtualBuffers.gecko_ia2 import Gecko_ia2
 
-
 class AppModule(appModuleHandler.AppModule):
+
+	scriptCategory = "Developer toolkit"
+
+	### Scripts.
+	@script(description = _("Enables or disables Developer toolkit features."),
+		gesture = "kb:alt+windows+k")
+	def script_ToggleFeatures(self, gesture):
+		if addonHandler.config.conf["developertoolkit"]["isEnabled"]:
+			addonHandler.config.conf["developertoolkit"]["isEnabled"] = False
+			self.__ToggleGestures()
+			ui.message("Developer toolkit disabled.")
+		elif not addonHandler.config.conf["developertoolkit"]["isEnabled"]:
+			addonHandler.config.conf["developertoolkit"]["isEnabled"] = True
+			self.__ToggleGestures()
+			ui.message("Developer toolkit enabled.")
 
 	# Helper function: Display detailed report in a virtual window.
 	def __displayDetailedReport__(self):
@@ -124,13 +145,35 @@ class AppModule(appModuleHandler.AppModule):
 				str(identifier))
 		return message
 
-	# Moves developer toolkit to the root web element in the page.
-	@script(
-		description = _("Moves developer toolkit to the root web object in the document."),
-		category = "Developer toolkit",
-		gestures = ["kb:control+windows+numpad9",
-			"kb(laptop):control+windows+o"])
-	def script_moveToRoot(self, gesture):
+	### Scripts...
+	@script(description = _("Speaks the focused element's HTML attributes. Press twice quickly to place in a virtual buffer."))
+	def script_HtmlAttributes(self, gesture):
+
+		focus = api.getFocusObject()
+		attributes = []
+
+		# Make sure we have a Firefox virtual buffer.
+		if focus.IA2Attributes and isinstance(focus.treeInterceptor, Gecko_ia2):
+
+			# Split the attributes in key/value pairs.
+			for key in focus.IA2Attributes:
+				attributes += ["%s: %s" % (key, focus.IA2Attributes[key])]
+
+			# Testing how many times the script runs.
+			if getLastScriptRepeatCount() == 0:
+				message = "\n".join(attributes)
+				ui.message(message)
+			elif getLastScriptRepeatCount() == 1:
+				message = "\n".join(attributes)
+				ui.browseableMessage("<pre>" + message + "</pre>", isHtml = True)
+
+		# We are not in a virtual buffer.
+		else:
+			ui.message("No HTML attributes found!")
+
+
+	@script(description = _("Moves focus to the document root."))
+	def script_DocumentRoot(self, gesture):
 		focus = api.getFocusObject()
 		# Make sure focused object is a web element.
 		if isinstance(focus.treeInterceptor, Gecko_ia2) and hasattr(focus, 'treeInterceptor'):
@@ -148,11 +191,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Moves the developer toolkit focus to the parent of the current object.
 	@script(
-		description = _("Moves developer toolkit focus to the parent of the current object."),
-		category = "Developer toolkit",
-		gestures = ["kb:control+windows+numpad8",
-			"kb(laptop):control+windows+i"])
-	def script_moveToParent(self, gesture):
+		description = _("Moves focus to the selected element's parent."),
+	)
+	def script_Parent(self, gesture):
 		focus = api.getFocusObject()
 		if (focus.parent is not None) and (focus.parent.treeInterceptor is not None):
 			api.setFocusObject(focus.parent)
@@ -164,11 +205,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Move to next sibling in the tree.
 	@script(
-		description = _("Moves developer toolkit focus to the next sibling object."),
-		category = "Developer toolkit",
-		gestures = ["kb:control+windows+numpad6",
-			"kb(laptop):control+windows+l"])
-	def script_moveToNextSibling(self, gesture):
+		description = _("Moves focus to the next sibling."),
+	)
+	def script_NextSibling(self, gesture):
 		focus = api.getFocusObject()
 		if (focus.next is not None) and (focus.treeInterceptor is not None):
 			api.setFocusObject(focus.next)
@@ -180,11 +219,9 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Set developer toolkit focus to the previous sibling.
 	@script(
-		description = _("Set developer toolkit focus to the previous sibling."),
-		category = "Developer toolkit",
-		gestures = ["kb:control+windows+numpad4",
-			"kb(laptop):control+windows+j"])
-	def script_moveToPreviousSibling(self, gesture):
+		description = _("Moves focus to the previous sibling."),
+	)
+	def script_PreviousSibling(self, gesture):
 		focus = api.getFocusObject()
 		if (focus.previous is not None) and (focus.treeInterceptor is not None):
 			api.setFocusObject(focus.previous)
@@ -196,15 +233,27 @@ class AppModule(appModuleHandler.AppModule):
 
 	# Set developer toolkit to the first child of an element.
 	@script(
-		description = _("Sets the developer toolkit focus to the first child of the focused element."),
-		category = "Developer toolkit",
-		gestures = ["kb:control+windows+numpad2",
-			"kb(laptop):control+windows+,"])
-	def script_moveToFirstChild(self, gesture):
+		description = _("Moves focus to the selected element's first child."),
+	)
+	def script_FirstChild(self, gesture):
 		focus = api.getFocusObject()
 		if focus.firstChild is not None and focus.treeInterceptor is not None:
 			api.setFocusObject(focus.firstChild)
 			message = self.__formatMessage__('First child:', focus.firstChild)
+			ui.message(message)
+		else:
+			message = self.__formatMessage__('No children!', None)
+			ui.message(message)
+
+
+	@script(
+		description = _("Moves focus to the selected element's last child."),
+	)
+	def script_LastChild(self, gesture):
+		focus = api.getFocusObject()
+		if focus.firstChild is not None and focus.treeInterceptor is not None:
+			api.setFocusObject(focus.lastChild)
+			message = self.__formatMessage__('Last child:', focus.lastChild)
 			ui.message(message)
 		else:
 			message = self.__formatMessage__('No children!', None)
@@ -217,7 +266,32 @@ class AppModule(appModuleHandler.AppModule):
 		gestures = ["kb:control+windows+numpad5",
 			"kb(laptop):control+windows+k"])
 	def script_reportObjectDetails(self, gesture):
+		self.summaryModeGesture = gesture
 		if getLastScriptRepeatCount() is 0:
 			self.__speakObjectSummary__()
 		else:
 			self.__displayDetailedReport__()
+
+	### Events
+	def event_gainFocus(self,object,nextHandler):
+		self.__ToggleGestures()
+		nextHandler()
+
+	### Gestures dictionary.
+	__gestures__ = {
+		"kb:leftArrow": "PreviousSibling",
+		"kb:rightArrow": "NextSibling",
+		"kb:upArrow": "Parent",
+		"kb:downArrow": "FirstChild",
+		"kb:end": "LastChild",
+		"kb:control+home": "DocumentRoot",
+		"kb:a": "HtmlAttributes",
+	}
+
+	### Internal functions.
+	def __ToggleGestures(self):
+		if addonHandler.config.conf["developertoolkit"]["isEnabled"]:
+			self.bindGestures(self.__gestures__)
+		elif not addonHandler.config.conf["developertoolkit"]["isEnabled"]:
+			self.clearGestureBindings()
+			self.bindGesture("kb:alt+windows+k", "ToggleFeatures")
