@@ -37,9 +37,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		for addon in addonHandler.getAvailableAddons():
 			if addon.name == "developerToolkit":
 				thisAddon = addon
-		addonName = thisAddon.name
-		addonVersion = thisAddon.version
-		message = u"{}: {}".format(thisAddon.name, thisAddon.version)
+		if shared.isDetailedMessages():
+			message = u"{}: {}".format(thisAddon.name, thisAddon.version)
+		elif not shared.isDetailedMessages():
+			message = u"{}".format(thisAddon.version)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
