@@ -46,7 +46,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
 
-
 	@script(description = _("Enables or disables Developer toolkit features."),
 		gesture = "kb:alt+windows+k")
 	def script_ToggleFeatures(self, gesture):
@@ -67,7 +66,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif not shared.isDetailedMessages():
 			config.conf["developertoolkit"]["isDetailedMessages"] = True
 			ui.message(_("Detailed messages enabled."))
-
 
 	@script(description = _("Speaks the focused element's HTML attributes. Press twice quickly to copy to clipboard."))
 	def script_SpeakHtmlAttributes(self, gesture):
@@ -94,13 +92,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		focus = api.getFocusObject()
 		if hasattr(focus, 'location'):
 			bottomEdge = shared.getSizeAndPosition(focus)["bottom"]
-			message = u"{} ({})'s bottom edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), bottomEdge)
+			if shared.isDetailedMessages():
+				message = u"{} ({})'s bottom edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), bottomEdge)		
+			elif not shared.isDetailedMessages():
+				message = u"{}px from top.".format(bottomEdge)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
-
-
 
 	@script(_("Speaks the number of children contained inside the focused object."))
 	def script_SpeakChildCount(self, gesture):
