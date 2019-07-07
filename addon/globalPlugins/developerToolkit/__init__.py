@@ -117,11 +117,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_SpeakObjectHeight(self, gesture):
 		focus = api.getFocusObject()
 		height = shared.getSizeAndPosition(focus)["height"]
-		message = ""
-		try:
-			message = _("{} ({}) is {} pixels high.".format(focus.name, shared.getRoleLabel(focus), height))
-		except UnicodeEncodeError:
-			message = "Height not available."
+		if shared.isDetailedMessages():
+			message = u"{} ({}) is {} pixels high.".format(focus.name, shared.getRoleLabel(focus), height)
+		elif not shared.isDetailedMessages():
+			message = u"{}px high.".format(height)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
