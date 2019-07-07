@@ -133,7 +133,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			siblingCount = focus.parent.childCount - 1
 		elif not focus.parent:
 			siblingCount = focus.childCount -1
-		message = _("{} ({}) has {} siblings.".format(focus.name, shared.getRoleLabel(focus), siblingCount))
+		if shared.isDetailedMessages():
+			message = u"{} ({}) has {} siblings.".format(focus.name, shared.getRoleLabel(focus), siblingCount)
+		elif not shared.isDetailedMessages():
+			message = u"{} siblings.".format(siblingCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
