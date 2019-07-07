@@ -146,11 +146,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def script_SpeakObjectWidth(self, gesture):
 		focus = api.getFocusObject()
 		width = shared.getSizeAndPosition(focus)["width"]
-		message = ""
-		try:
-			message = _("{} ({}) is {} pixels wide.".format(focus.name, shared.getRoleLabel(focus), width))
-		except UnicodeEncodeError:
-			message = "Width not available."
+		if shared.isDetailedMessages():
+			message = u"{} ({}) is {} pixels wide.".format(focus.name, shared.getRoleLabel(focus), width)
+		elif not shared.isDetailedMessages():
+			message = u"{}px wide.".format(width)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
