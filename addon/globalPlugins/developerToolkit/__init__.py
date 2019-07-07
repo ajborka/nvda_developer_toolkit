@@ -104,7 +104,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the number of children contained inside the focused object."))
 	def script_SpeakChildCount(self, gesture):
 		focus = api.getFocusObject()
-		message = "{} ({}) has {} children".format(focus.name, shared.getRoleLabel(focus), focus.childCount)
+		if shared.isDetailedMessages():
+			message = "{} ({}) has {} children".format(focus.name, shared.getRoleLabel(focus), focus.childCount)
+		elif not shared.isDetailedMessages():
+			message = u"{} children.".format(focus.childCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
