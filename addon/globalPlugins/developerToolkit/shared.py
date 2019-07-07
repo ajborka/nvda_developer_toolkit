@@ -53,6 +53,12 @@ def developerToolkitIsEnabled():
 	else:
 		return False
 
+def isDetailedMessages():
+	if config.conf["developertoolkit"]["isDetailedMessages"]:
+		return True
+	else:
+		return False
+
 def copyToClipboard(ObjectToCopy):
 	if api.copyToClip(ObjectToCopy):
 		ui.message("Copied to clipboard.")

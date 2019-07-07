@@ -58,6 +58,16 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.__ToggleGestures()
 			ui.message("Developer toolkit enabled.")
 
+	@script(_("Enables or disables detailed messages."))
+	def script_ToggleDetailedMessages(self, gesture):
+		if shared.isDetailedMessages():
+			config.conf["developertoolkit"]["isDetailedMessages"] = False
+			ui.message(_("Detailed messages disabled."))
+		elif not shared.isDetailedMessages():
+			config.conf["developertoolkit"]["isDetailedMessages"] = True
+			ui.message(_("Detailed messages enabled."))
+
+
 	@script(description = _("Speaks the focused element's HTML attributes. Press twice quickly to copy to clipboard."))
 	def script_SpeakHtmlAttributes(self, gesture):
 		attributes = []
@@ -224,6 +234,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:a": "SpeakHtmlAttributes",
 		"kb:b": "SpeakObjectBottomPosition",
 		"kb:c": "SpeakChildCount",
+		"kb:control+d": "ToggleDetailedMessages",
 		"kb:h": "SpeakObjectHeight",
 		"kb:s": "SpeakSiblingCount",
 		"kb:v": "SpeakVersion",
