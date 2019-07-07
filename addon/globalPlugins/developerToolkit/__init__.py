@@ -17,7 +17,7 @@ import api
 
 confspeck = {
 	"isEnabled": "boolean(default = True)",
-	"isElementLoggingEnabled": "boolean(default = False)",
+	"isDetailedMessages": "boolean(default = False)",
 }
 config.conf.spec["developertoolkit"] = confspeck
 
