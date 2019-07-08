@@ -87,19 +87,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		else:
 			ui.message("Feature only available in web content.")
 
-	@script(_("Speaks the position of the object's bottom edge."))
+	@script(_("Speaks the position of the object's bottom edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectBottomPosition(self, gesture):
 		focus = api.getFocusObject()
-		if hasattr(focus, 'location'):
-			bottomEdge = shared.getSizeAndPosition(focus)["bottom"]
+		bottomEdge = shared.getSizeAndPosition(focus)["bottom"]
+		if bottomEdge:
 			if shared.isDetailedMessages():
 				message = u"{} ({})'s bottom edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), bottomEdge)		
 			elif not shared.isDetailedMessages():
-				message = u"{}px from top.".format(bottomEdge)
+				message = u"{} from top.".format(bottomEdge)
+		else:
+			message = u"bottom edge not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
+
+
+
 
 	@script(_("Speaks the number of children contained inside the focused object."))
 	def script_SpeakChildCount(self, gesture):

@@ -17,7 +17,7 @@ def isWebElement(theObject):
 		return False
 
 def getSizeAndPosition(theObject):
-	if theObject is not None and hasattr(theObject, 'location'):
+	if theObject is not None and hasLocation(theObject):
 		return {
 			'left':theObject.location.left,
 			'top':theObject.location.top,
@@ -68,4 +68,10 @@ def copyToClipboard(ObjectToCopy):
 def getRoleLabel(theObject):
 	key =theObject.role
 	return roleLabels[key]
+
+def hasLocation(theObject):
+	if hasattr(theObject, 'location'):
+		return True
+	else:
+		return False
 
