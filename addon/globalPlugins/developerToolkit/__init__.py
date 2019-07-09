@@ -119,6 +119,37 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
 
+	@script(_("Speaks the position of the object's right edge. Press twice quickly to copy to clipboard."))
+	def script_SpeakObjectRightPosition(self, gesture):
+		focus = api.getFocusObject()
+		rightEdge = shared.getSizeAndPosition(focus)["right"]
+		if rightEdge:
+			if shared.isDetailedMessages():
+				message = u"{} ({})'s right edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), rightEdge)
+			elif not shared.isDetailedMessages():
+				message = u"{} from left.".format(rightEdge)
+		else:
+			message = u"right edge not available."
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() == 1:
+			shared.copyToClipboard(message)
+
+	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
+	def script_SpeakObjectTopPosition(self, gesture):
+		focus = api.getFocusObject()
+		topEdge = shared.getSizeAndPosition(focus)["top"]
+		if topEdge:
+			if shared.isDetailedMessages():
+				message = u"{} ({})'s top edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), topEdge)		
+			elif not shared.isDetailedMessages():
+				message = u"{} from top.".format(topEdge)
+		else:
+			message = u"bottom edge not available."
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() == 1:
+			shared.copyToClipboard(message)
 
 	@script(_("Speaks the number of children contained inside the focused object."))
 	def script_SpeakChildCount(self, gesture):
@@ -260,7 +291,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+d": "ToggleDetailedMessages",
 		"kb:h": "SpeakObjectHeight",
 		"kb:l": "SpeakObjectLeftPosition",
+		"kb:r": "SpeakObjectRightPosition",
 		"kb:s": "SpeakSiblingCount",
+		"kb:t": "SpeakObjectTopPosition",
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",
 	}
