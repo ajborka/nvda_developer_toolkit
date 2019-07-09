@@ -103,7 +103,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
 
-
+	@script(_("Speaks the position of the object's left edge. Press twice quickly to copy to clipboard."))
+	def script_SpeakObjectLeftPosition(self, gesture):
+		focus = api.getFocusObject()
+		leftEdge = shared.getSizeAndPosition(focus)["left"]
+		if leftEdge:
+			if shared.isDetailedMessages():
+				message = u"{} ({})'s left edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), leftEdge)		
+			elif not shared.isDetailedMessages():
+				message = u"{} from left.".format(leftEdge)
+		else:
+			message = u"left edge not available."
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() == 1:
+			shared.copyToClipboard(message)
 
 
 	@script(_("Speaks the number of children contained inside the focused object."))
@@ -245,6 +259,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:c": "SpeakChildCount",
 		"kb:control+d": "ToggleDetailedMessages",
 		"kb:h": "SpeakObjectHeight",
+		"kb:l": "SpeakObjectLeftPosition",
 		"kb:s": "SpeakSiblingCount",
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",
