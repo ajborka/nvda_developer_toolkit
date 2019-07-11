@@ -204,6 +204,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
+	@script(_("Moves to the object's top-most parent."))
+	def script_MoveToTopParent(self, gesture):
+		parents = api.getFocusAncestors()
+		for parent in parents:
+			if not parent.parent:
+				topParent = parent
+		api.setFocusObject(topParent)
+		message = u"{} ({}".format(topParent.name, shared.getRoleLabel(topParent))
+		ui.message(message)
 
 	@script(description = _("Moves to the focused object's parent."))
 	def script_MoveToParent(self, gesture):
@@ -283,7 +292,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:upArrow": "MoveToParent",
 		"kb:downArrow": "MoveToFirstChild",
 		#"kb:end": "LastChild",
-		#"kb:control+home": "DocumentRoot",
+		"kb:control+home": "MoveToTopParent",
 		"kb:a": "SpeakHtmlAttributes",
 		"kb:b": "SpeakObjectBottomPosition",
 		"kb:c": "SpeakChildCount",
