@@ -95,7 +95,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if shared.isDetailedMessages():
 				message = u"{} ({})'s bottom edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), bottomEdge)		
 			elif not shared.isDetailedMessages():
-				message = u"{} from top.".format(bottomEdge)
+				message = u"{}".format(bottomEdge)
 		else:
 			message = u"bottom edge not available."
 		if getLastScriptRepeatCount() == 0:
@@ -111,7 +111,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if shared.isDetailedMessages():
 				message = u"{} ({})'s left edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), leftEdge)		
 			elif not shared.isDetailedMessages():
-				message = u"{} from left.".format(leftEdge)
+				message = u"{}".format(leftEdge)
 		else:
 			message = u"left edge not available."
 		if getLastScriptRepeatCount() == 0:
@@ -127,7 +127,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if shared.isDetailedMessages():
 				message = u"{} ({})'s right edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), rightEdge)
 			elif not shared.isDetailedMessages():
-				message = u"{} from left.".format(rightEdge)
+				message = u"{}".format(rightEdge)
 		else:
 			message = u"right edge not available."
 		if getLastScriptRepeatCount() == 0:
@@ -143,7 +143,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if shared.isDetailedMessages():
 				message = u"{} ({})'s top edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), topEdge)		
 			elif not shared.isDetailedMessages():
-				message = u"{} from top.".format(topEdge)
+				message = u"{}".format(topEdge)
 		else:
 			message = u"bottom edge not available."
 		if getLastScriptRepeatCount() == 0:
@@ -157,7 +157,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if shared.isDetailedMessages():
 			message = "{} ({}) has {} children".format(focus.name, shared.getRoleLabel(focus), focus.childCount)
 		elif not shared.isDetailedMessages():
-			message = u"{} children.".format(focus.childCount)
+			message = u"{}".format(focus.childCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
@@ -170,7 +170,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if shared.isDetailedMessages():
 			message = u"{} ({}) is {} pixels high.".format(focus.name, shared.getRoleLabel(focus), height)
 		elif not shared.isDetailedMessages():
-			message = u"{}px high.".format(height)
+			message = u"{}".format(height)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
@@ -186,7 +186,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if shared.isDetailedMessages():
 			message = u"{} ({}) has {} siblings.".format(focus.name, shared.getRoleLabel(focus), siblingCount)
 		elif not shared.isDetailedMessages():
-			message = u"{} siblings.".format(siblingCount)
+			message = u"{}".format(siblingCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
@@ -199,12 +199,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		if shared.isDetailedMessages():
 			message = u"{} ({}) is {} pixels wide.".format(focus.name, shared.getRoleLabel(focus), width)
 		elif not shared.isDetailedMessages():
-			message = u"{}px wide.".format(width)
+			message = u"{}".format(width)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
-
 
 	@script(description = _("Moves to the focused object's parent."))
 	def script_MoveToParent(self, gesture):
