@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # Developer toolkit: Helps blind and visually impaired developers create appealing user interfaces.
 # __init__.py: global plugin startup code.
 # Copyright 2019 Andy Borka. Licensed under GPL2.
@@ -13,6 +14,7 @@ import ui
 from . import dialogs
 from . import shared
 import api
+import textInfos
 
 
 confspeck = {
@@ -204,6 +206,30 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(message)
 		elif getLastScriptRepeatCount() == 1:
 			shared.copyToClipboard(message)
+
+	@script(_("Gets the font information for an object."))
+	def script_GetFontInfo(self, gesture):
+		focus = api.getFocusObject()
+		formatting = []
+		if shared.isWebElement(focus):
+			tree = focus.treeInterceptor
+			info = tree.makeTextInfo(textInfos.POSITION_ALL)
+			info.expand(textInfos.UNIT_CHARACTER)
+			fields = info.getTextWithFields()
+			for field in fields:
+				if isinstance (field, textInfos.FieldCommand) and isinstance (field.field, textInfos.FormatField):
+					for key in field.field:
+						formatting += [u"{}: {}".format(key, field.field[key])]
+			message = '\n'.join(formatting)
+			if getLastScriptRepeatCount() == 0:
+				ui.message(message)
+			elif getLastScriptRepeatCount() == 1:
+				shared.copyToClipboard(message)
+		else:
+			message = u"Only available in web content."
+			ui.message(message)
+
+
 	@script(_("Moves to the object's top-most parent."))
 	def script_MoveToTopParent(self, gesture):
 		parents = api.getFocusAncestors()
@@ -297,6 +323,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:b": "SpeakObjectBottomPosition",
 		"kb:c": "SpeakChildCount",
 		"kb:control+d": "ToggleDetailedMessages",
+		"kb:f": "GetFontInfo",
 		"kb:h": "SpeakObjectHeight",
 		"kb:l": "SpeakObjectLeftPosition",
 		"kb:r": "SpeakObjectRightPosition",
