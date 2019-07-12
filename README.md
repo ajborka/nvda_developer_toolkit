@@ -1,54 +1,37 @@
-# NVDA Add-on Scons Template #
-
-This package contains a basic template structure for NVDA add-on development, building, distribution and localization.
-For details about NVDA add-on development please see the [NVDA Developer Guide](http://www.nvda-project.org/documentation/developerGuide.html).
-The NVDA addon development/discussion list [is here](https://nvda-addons.groups.io/g/nvda-addons)
-
-Copyright (C) 2012-2018 nvda addon team contributors.
-
-This package is distributed under the terms of the GNU General Public License, version 2 or later. Please see the file COPYING.txt for further details.
-
-## Features
-
-This template provides the following features you can use to help NVDA add-on development:
-
-* Automatic add-on package creation, with naming and version loaded from a centralized build variables file (buildVars.py).
-* Manifest file creation using a template (manifest.ini.tpl). Build variables are replaced on this template.
-* Compilation of gettext mo files before distribution, when needed.
-	* To generate a gettext pot file, please run scons pot. A **addon-name.pot** file will be created with all gettext messages for your add-on. You need to check the buildVars.i18nSources variable to comply with your requirements.
-* Automatic generation of manifest localization files directly from gettext po files. Please make sure buildVars.py is included in i18nFiles.
-* Automatic generation of HTML documents from markdown (.md) files, to manage documentation in different languages.
-
-## Requirements
-
-You need the following software to use this code for your NVDA add-ons development:
-
-* a Python distribution (2.7 or greater is recommended). Check the [Python Website](http://www.python.org) for Windows Installers.
-* Scons - [Website](http://www.scons.org/) - version 2.1.0 or greater. Install it using **easy_install** or grab an windows installer from the website.
-* GNU Gettext tools, if you want to have localization support for your add-on - Recommended. Any Linux distro or cygwin have those installed. You can find windows builds [here](http://gnuwin32.sourceforge.net/downlinks/gettext.php).
-* Markdown-2.0.1 or greater, if you want to convert documentation files to HTML documents. You can [Download Markdown-2.0.1 installer for Windows](https://pypi.python.org/pypi/Markdown/2.0.1) or get it using `easy_install markdown`.
-
-## Usage
-
-### To create a new NVDA add-on, taking advantage of this template: ###
-
-1. Create an empty folder to hold the files for your add-on.
-2. Create an **addon** folder inside this new folder. Inside **addon* folder, create needed folders for the add-on modules (e.g. appModules, synthDrivers, etc.). An add-on may have one or more module folders.
-3. Copy the **buildVars.py** file, the manifest.ini.tpl file, the manifest-translated.ini.tpl, **SCONSTRUCT**, site_scons, .gitignore and .gitattributes files to the created folder.
-4. In the **buildVars.py** file, change variable **addon_info** with your add-on's information (name, summary, description, version, author and url).
-5. Put your code in the usual folders for NVDA extension, under the **addon** folder. For instance: globalPlugins, synthDrivers, etc.
-6. Gettext translations must be placed into addon\locale\<lang>/LC_MESSAGES\nvda.po. 
-
-### To manage documentation files for your addon: ###
-
-1. Copy the **readme.md** file for your add-on to the first created folder, where you copied **buildVars.py**. You can also copy **style.css** to improve the presentation of HTML documents.
-2. Documentation files (named **readme.md**) must be placed into addon\doc\<lang>/.
-
-### To package the add-on for distribution: ###
-
-1. Open a command line, change to the folder that has the **SCONSTRUCT** file (usually the root of your add-on development folder) and run the **scons** command. The created add-on, if there were no errors, is placed in the current directory.
-2. You can further customize variables in the **buildVars.py** file.
-
-Note that this template only provides a basic add-on structure and build infrastructure. You may need to adapt it for your specific needs.
-
-If you have any issues please use the NVDA addon list mentioned above.
+#Developer toolkit 2019.0
+Developer toolkit (DTK) is an NVDA add-on that assists blind and visually impaired developers to independently create visually appealing user interfaces or web content. This is done by enabling DTK, navigating around the user interface or web content, then performing gestures to obtain information about the appearance, location, and size of the focused control. To enable or disable DTK, press alt+windows+k on your keyboard. The following gestures are available when DTK is enabled.
+##Gestures
+* Alt+windows+k – Enable or disable DTK.
+* Left arrow – Move to previous sibling.
+* Right arrow – Move to next sibling.
+* Up arrow – Move to parent.
+* Down arrow – Move to first child.
+* Control+home – Move to top-most parent.
+* A – In web content, speak HTML attributes. Press twice quickly to copy to the clipboard.
+* B – Speak the position of the object’s bottom edge. Press twice quickly to copy to the clipboard.
+* C – Speak the number of children contained inside the object. Press twice quickly to copy to the clipboard.
+* Control+d – Enable or disable detailed messages.
+* F – In web content, speaks the object’s font and formatting information. Press twice quickly to copy to the clipboard.
+* H – Speak the object’s height. Press twice quickly to copy to the clipboard.
+* L – Speak the position of the object’s left edge. Press twice quickly to copy to the clipboard.
+* R – Speak the position of the object’s right edge. Press twice quickly to copy to the clipboard.
+* S – Speak the number of siblings relative to the object. Press twice quickly to copy to the clipboard.
+* T – Speak the position of the object’s top edge. Press twice quickly to copy to the clipboard.
+* V – Speak Developer toolkit version. Press twice quickly to copy to the clipboard.
+* W – Speak the object’s width. Press twice quickly to copy to the clipboard.
+##Notes
+* When using Chrome, not all web elements will appear in the accessibility tree. To force an element to appear in the accessibility tree, give it a title attribute.
+* When using Firefox, phantom elements may appear in the accessibility tree. For example, a text frame may appear as a text block’s container. These phantom elements are a part of Mozilla’s implementation of the accessibility tree.
+* Edge has not been completely tested. Therefore, anything reported by the add-on should be considered with care.
+* In web content, everything except a text block is a container. For instance, a paragraph (p tag) may have multiple elements inside.
+* div tags are reported as a section in HTML5.
+* To avoid names of web elements appearing as "None", always give elements a title attribute.
+* Font information is only available in web content. This should be fixed in a future version.
+* Users can now enable or disable DTK on an application basis. For example, enabling it in Chrome doesn’t mean it is enabled in all browsers. Users will have to enable or disable DTK for each application on their system.
+* The add-on does not teach a user proper user interface/web content design concepts.
+##Known issues
+* Users are not automatically notified of the enabled/disabled state of the add-on.
+* The margins of a control are only available in web content. This will not change for the foreseeable future.
+* The border and padding attributes are not available. This is a long-standing issue.
+* There is no way to restrict DTK to a specific content type or application window.
+* The font information when pressing F is messy, and will get fixed in a future version.
