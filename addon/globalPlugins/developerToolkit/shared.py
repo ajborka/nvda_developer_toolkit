@@ -3,6 +3,7 @@
 # A part of Developer toolkit.
 # Copyright 2019 Andy Borka. Released under GPL. See License for details.
 
+from __future__ import unicode_literals
 import api
 import config
 from controlTypes import roleLabels
@@ -61,9 +62,11 @@ def isDetailedMessages():
 
 def copyToClipboard(ObjectToCopy):
 	if api.copyToClip(ObjectToCopy):
-		ui.message("Copied to clipboard.")
+		message = "Copied to clipboard."
+		ui.message(message)
 	else:
-		ui.message("Failed to copy to clipboard.")
+		message = "Copy faildd."
+		ui.message(message)
 
 def getRoleLabel(theObject):
 	key =theObject.role
