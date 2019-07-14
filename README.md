@@ -1,5 +1,11 @@
 # Developer toolkit 2019
 Developer toolkit (DTK) is an NVDA add-on that assists blind and visually impaired developers to independently create visually appealing user interfaces or web content. This is done by enabling DTK, navigating around the user interface or web content, then performing gestures to obtain information about the appearance, location, and size of the focused control. To enable or disable DTK, press alt+windows+k on your keyboard.
+## 2019.1.1
+* DTK will no longer attempt to load itself multiple times when announcing the version number.
+* DTK will be disabled on install. Previously, the add-on would enable itself when installed.
+* Messages presented to the user can now contain non-ascii characters.
+* Pressing gestures such as a, b, c, f, h, l, r, s, t, v, and w no longer interupt NVDA speech when copying to the clipboard.
+
 ## 2019.1
 * Fixed a compatibility problem where DTK declared a minimum NVDA version that hasn't been released yet.
 ## 2019.0 (initial stable release)

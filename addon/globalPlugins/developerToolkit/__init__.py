@@ -47,7 +47,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "{}".format(thisAddon.version)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(description = _("Enables or disables Developer toolkit features."),
@@ -88,7 +88,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			if getLastScriptRepeatCount() == 0:
 				message = "\n".join(attributes)
 				ui.message(message)
-			elif getLastScriptRepeatCount() == 1:
+			elif getLastScriptRepeatCount() >= 1:
 				message = "\n".join(attributes)
 				shared.copyToClipboard(message)
 		# We are not in a virtual buffer.
@@ -109,7 +109,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = u"bottom edge not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the position of the object's left edge. Press twice quickly to copy to clipboard."))
@@ -125,7 +125,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "left edge not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the position of the object's right edge. Press twice quickly to copy to clipboard."))
@@ -141,7 +141,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "right edge not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
@@ -157,7 +157,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "top edge not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the number of children contained inside the focused object."))
@@ -169,7 +169,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "{}".format(focus.childCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the focused object's height."))
@@ -182,7 +182,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "{}".format(height)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the number of siblings for the focused object."))
@@ -198,7 +198,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "{}".format(siblingCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Speaks the focused object's width."))
@@ -211,7 +211,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "{}".format(width)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
-		elif getLastScriptRepeatCount() == 1:
+		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
 	@script(_("Gets the font information for an object."))
@@ -230,7 +230,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = '\n'.join(formatting)
 			if getLastScriptRepeatCount() == 0:
 				ui.message(message)
-			elif getLastScriptRepeatCount() == 1:
+			elif getLastScriptRepeatCount() >= 1:
 				shared.copyToClipboard(message)
 		else:
 			message = "Only available in web content."
