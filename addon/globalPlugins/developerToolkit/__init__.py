@@ -3,6 +3,7 @@
 # __init__.py: global plugin startup code.
 # Copyright 2019 Andy Borka. Licensed under GPL2.
 
+
 import addonHandler
 import globalPluginHandler
 import config
@@ -18,8 +19,8 @@ import textInfos
 
 
 confspeck = {
-	"isEnabled": "boolean(default = True)",
-	"isDetailedMessages": "boolean(default = False)",
+	"isEnabled": "boolean(default = False)",
+	"isDetailedMessages": "boolean(default = True)",
 }
 config.conf.spec["developertoolkit"] = confspeck
 
@@ -39,6 +40,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		for addon in addonHandler.getAvailableAddons():
 			if addon.name == "developerToolkit":
 				thisAddon = addon
+				break
 		if shared.isDetailedMessages():
 			message = u"{}: {}".format(thisAddon.name, thisAddon.version)
 		elif not shared.isDetailedMessages():
