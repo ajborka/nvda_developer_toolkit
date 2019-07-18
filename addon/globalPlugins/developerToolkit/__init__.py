@@ -90,14 +90,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's bottom edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectBottomPosition(self, gesture):
 		focus = api.getFocusObject()
-		bottomEdge = shared.getSizeAndPosition(focus)["bottom"]
-		if bottomEdge:
-			if shared.isDetailedMessages():
-				message = "{} ({})'s bottom edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), bottomEdge)		
-			elif not shared.isDetailedMessages():
-				message = "{}".format(bottomEdge)
-		else:
-			message = u"bottom edge not available."
+		message = shared.SpeakSizeAndLocationHelper("bottom", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
