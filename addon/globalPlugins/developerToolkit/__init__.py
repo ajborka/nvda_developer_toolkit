@@ -66,7 +66,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["developertoolkit"]["isDetailedMessages"] = False
 			message = "Detailed messages disabled."
 			ui.message(message)
-		elif not shared.isDetailedMessages():
+		else:
 			config.conf["developertoolkit"]["isDetailedMessages"] = True
 			message = "Detailed messages enabled."
 			ui.message(message)
