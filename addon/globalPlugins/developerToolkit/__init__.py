@@ -54,7 +54,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.__ToggleGestures()
 			message = "Developer toolkit disabled."
 			ui.message(message)
-		elif not shared.developerToolkitIsEnabled():
+		else:
 			config.conf["developertoolkit"]["isEnabled"] = True
 			self.__ToggleGestures()
 			message = "Developer toolkit enabled."
