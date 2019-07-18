@@ -36,14 +36,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(_("Speaks The addon's version number. Press twice quickly to copy to the clipboard."))
 	def script_SpeakVersion(self, gesture):
-		thisAddon = addonHandler.Addon
-		for addon in addonHandler.getAvailableAddons():
-			if addon.name == "developerToolkit":
-				thisAddon = addon
-				break
+		thisAddon = filter(lambda a: a.name == "developerToolkit", addonHandler.getAvailableAddons())[0]
 		if shared.isDetailedMessages():
 			message = "{}: {}".format(thisAddon.name, thisAddon.version)
-		elif not shared.isDetailedMessages():
+		else:
 			message = "{}".format(thisAddon.version)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
