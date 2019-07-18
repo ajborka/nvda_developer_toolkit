@@ -99,14 +99,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's left edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectLeftPosition(self, gesture):
 		focus = api.getFocusObject()
-		leftEdge = shared.getSizeAndPosition(focus)["left"]
-		if leftEdge:
-			if shared.isDetailedMessages():
-				message = "{} ({})'s left edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), leftEdge)
-			elif not shared.isDetailedMessages():
-				message = "{}".format(leftEdge)
-		else:
-			message = "left edge not available."
+		message = shared.SpeakSizeAndLocationHelper("left", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -115,14 +108,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's right edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectRightPosition(self, gesture):
 		focus = api.getFocusObject()
-		rightEdge = shared.getSizeAndPosition(focus)["right"]
-		if rightEdge:
-			if shared.isDetailedMessages():
-				message = "{} ({})'s right edge is {} pixels from left edge of window.".format(focus.name, shared.getRoleLabel(focus), rightEdge)
-			elif not shared.isDetailedMessages():
-				message = "{}".format(rightEdge)
-		else:
-			message = "right edge not available."
+		message = shared.SpeakSizeAndLocationHelper("right", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -131,14 +117,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectTopPosition(self, gesture):
 		focus = api.getFocusObject()
-		topEdge = shared.getSizeAndPosition(focus)["top"]
-		if topEdge:
-			if shared.isDetailedMessages():
-				message = "{} ({})'s top edge is {} pixels from top edge of window.".format(focus.name, shared.getRoleLabel(focus), topEdge)
-			elif not shared.isDetailedMessages():
-				message = "{}".format(topEdge)
-		else:
-			message = "top edge not available."
+		message = shared.SpeakSizeAndLocationHelper("top", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -159,11 +138,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the focused object's height."))
 	def script_SpeakObjectHeight(self, gesture):
 		focus = api.getFocusObject()
-		height = shared.getSizeAndPosition(focus)["height"]
-		if shared.isDetailedMessages():
-			message = "{} ({}) is {} pixels high.".format(focus.name, shared.getRoleLabel(focus), height)
-		elif not shared.isDetailedMessages():
-			message = "{}".format(height)
+		message = shared.SpeakSizeAndLocationHelper("height", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -188,11 +163,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the focused object's width."))
 	def script_SpeakObjectWidth(self, gesture):
 		focus = api.getFocusObject()
-		width = shared.getSizeAndPosition(focus)["width"]
-		if shared.isDetailedMessages():
-			message = "{} ({}) is {} pixels wide.".format(focus.name, shared.getRoleLabel(focus), width)
-		elif not shared.isDetailedMessages():
-			message = "{}".format(width)
+		message = shared.SpeakSizeAndLocationHelper("width", focus)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
