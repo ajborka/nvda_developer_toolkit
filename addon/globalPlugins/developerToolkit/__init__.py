@@ -73,20 +73,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(description = _("Speaks the focused element's HTML attributes. Press twice quickly to copy to clipboard."))
 	def script_SpeakHtmlAttributes(self, gesture):
-		attributes = []
 		focus = api.getFocusObject()
 		# Make sure we have a web element.
 		if hasattr(focus, 'IA2Attributes') and focus.IA2Attributes and shared.isWebElement(focus):
-			# Split the attributes in key/value pairs.
-			for key in focus.IA2Attributes:
-				attributes += ["{}: {}".format(key, focus.IA2Attributes[key])]
+			attributes = "\n".join("{}: {}".format(k, v) for k, v in sorted(focus.IA2Attributes.items()))
 			# Testing how many times the script runs.
 			if getLastScriptRepeatCount() == 0:
-				message = "\n".join(attributes)
-				ui.message(message)
+				ui.message(attributes)
 			elif getLastScriptRepeatCount() >= 1:
-				message = "\n".join(attributes)
-				shared.copyToClipboard(message)
+				shared.copyToClipboard(attributes)
 		# We are not in a virtual buffer.
 		else:
 			message = "Feature only available in web content."
