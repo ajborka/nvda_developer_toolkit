@@ -22,7 +22,7 @@ The following gestures are available when DTK is enabled.
 * V – Speak Developer toolkit version. Press twice quickly to copy to the clipboard.
 * W – Speak the object’s width. Press twice quickly to copy to the clipboard.
 
-##Notes
+## Notes
 
 * DTK helps developers create user interfaces. This add-on is not an analytical tool for third-party user interfaces.
 * When using Chrome, not all web elements will appear in the accessibility tree. To force an element to appear in the accessibility tree, give it a title attribute.
