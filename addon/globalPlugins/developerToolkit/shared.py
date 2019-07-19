@@ -96,5 +96,8 @@ def NavigateTo(relationship, theObject):
 		else:
 			return "{}".format(theObject.name)
 	else:
-		return "No more {}s.".format(relationship)
-		
+		# child relationship doesn't fit the typical plural form of the other relationships.
+		if relationship == "child":
+			return "No more children."
+		else:
+			return "No more {}s.".format(relationship)

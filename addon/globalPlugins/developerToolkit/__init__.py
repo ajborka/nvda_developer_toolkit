@@ -225,13 +225,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Move to the focused object's first child."))
 	def script_MoveToFirstChild(self, gesture):
 		focus = api.getFocusObject()
-		if focus.firstChild:
-			api.setFocusObject(focus.firstChild)
-			message = "{} ({})".format(focus.firstChild.name, shared.getRoleLabel(focus.firstChild))
-			ui.message(message)
-		else:
-			message = "No more children."
-			ui.message(message)
+		message = shared.NavigateTo("child", focus.firstChild)
+		ui.message(message)
 
 	def __ToggleGestures(self):
 		# Developer toolkit is enabled, bind gestures.
