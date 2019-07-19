@@ -11,11 +11,10 @@ from controlTypes import stateLabels
 import ui
 from virtualBuffers import VirtualBuffer
 
-def isWebElement(theObject):
-	if isinstance(theObject.treeInterceptor, VirtualBuffer):
-		return True
-	else:
-		return False
+isWebElement = lambda theObject: isinstance(theObject.treeInterceptor, VirtualBuffer)
+developerToolkitIsEnabled = lambda : config.conf["developertoolkit"]["isEnabled"]
+isDetailedMessages = lambda : config.conf["developertoolkit"]["isDetailedMessages"]
+hasLocation = lambda theObject: hasattr(theObject, 'location')
 
 def getSizeAndPosition(theObject):
 	if theObject is not None and hasLocation(theObject):
@@ -48,18 +47,6 @@ def getSizeAndPosition(theObject):
 	else:
 		return None
 
-def developerToolkitIsEnabled():
-	if config.conf["developertoolkit"]["isEnabled"]:
-		return True
-	else:
-		return False
-
-def isDetailedMessages():
-	if config.conf["developertoolkit"]["isDetailedMessages"]:
-		return True
-	else:
-		return False
-
 def copyToClipboard(ObjectToCopy):
 	if api.copyToClip(ObjectToCopy):
 		message = "Copied to clipboard."
@@ -71,12 +58,6 @@ def copyToClipboard(ObjectToCopy):
 def getRoleLabel(theObject):
 	key =theObject.role
 	return roleLabels[key]
-
-def hasLocation(theObject):
-	if hasattr(theObject, 'location'):
-		return True
-	else:
-		return False
 
 def SpeakSizeAndLocationHelper(locationAttribute, theObject):
 	attribute = getSizeAndPosition(theObject)[locationAttribute]
