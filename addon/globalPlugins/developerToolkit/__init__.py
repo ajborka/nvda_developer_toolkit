@@ -206,13 +206,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(description = _("Moves to the focused object's parent."))
 	def script_MoveToParent(self, gesture):
 		focus = api.getFocusObject()
-		if focus.parent:
-			api.setFocusObject(focus.parent)
-			message = "{} ({})".format(focus.parent.name, shared.getRoleLabel(focus.parent))
-			ui.message(message)
-		elif not focus.parent:
-			message = "No more parents."
-			ui.message(message)
+		message = shared.NavigateTo("parent", focus.parent)
+		ui.message(message)
+		
 
 	@script(description = _("Moves focus to the next sibling."))
 	def script_MoveToNextSibling(self, gesture):
