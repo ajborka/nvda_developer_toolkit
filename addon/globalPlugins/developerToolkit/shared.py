@@ -87,3 +87,14 @@ def SpeakSizeAndLocationHelper(locationAttribute, theObject):
 			return "{}".format(attribute)
 	else:
 		return "{} not available.".format(locationAttribute)
+
+def NavigateTo(relationship, theObject):
+	if theObject:
+		api.setFocusObject(theObject)
+		if isDetailedMessages():
+			return "{}: {}".format(theObject.name, getRoleLabel(theObject))
+		else:
+			return "{}".format(theObject.name)
+	else:
+		return "No more {}s.".format(relationship)
+		

@@ -194,13 +194,14 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(_("Moves to the object's top-most parent."))
 	def script_MoveToTopParent(self, gesture):
-		parents = api.getFocusAncestors()
-		for parent in parents:
-			if not parent.parent:
-				topParent = parent
-		api.setFocusObject(topParent)
-		message = "{} ({}".format(topParent.name, shared.getRoleLabel(topParent))
-		ui.message(message)
+		parents = filter(lambda p: not p.parent, api.getFocusAncestors())
+		# This is not standard navigation because we jump to the top of the tree.
+		if parents:
+			message = shared.NavigateTo("parent", parents[0])
+			ui.message(message)
+		else:
+			message = "No more parents."
+			ui.message(message)
 
 	@script(description = _("Moves to the focused object's parent."))
 	def script_MoveToParent(self, gesture):
