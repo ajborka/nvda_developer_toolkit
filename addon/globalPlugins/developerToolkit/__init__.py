@@ -229,12 +229,10 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		ui.message(message)
 
 	def __ToggleGestures(self):
-		# Developer toolkit is enabled, bind gestures.
 		if shared.developerToolkitIsEnabled():
 			for key in self.__developerToolkitGestures:
 				self.bindGesture(key, self.__developerToolkitGestures[key])
-		# Developer toolkit is disabled, remove gestures.
-		elif not shared.developerToolkitIsEnabled():
+		else:
 			for key in self.__developerToolkitGestures:
 				try:
 					self.removeGestureBinding(key)
