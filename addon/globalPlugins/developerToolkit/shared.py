@@ -80,7 +80,7 @@ def hasLocation(theObject):
 
 def SpeakSizeAndLocationHelper(locationAttribute, theObject):
 	attribute = getSizeAndPosition(theObject)[locationAttribute]
-	if attribute:
+	if attribute > -1:
 		if isDetailedMessages():
 			return "{} pixels.".format(attribute)
 		else:
