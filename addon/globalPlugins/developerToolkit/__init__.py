@@ -261,4 +261,3 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",
 	}
-
