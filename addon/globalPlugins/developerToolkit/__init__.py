@@ -191,8 +191,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "Only available in web content."
 			ui.message(message)
 
+	@script(description = _("Speaks the object's name. Press twice quickly to copy to the clipboard."))
+	def script_SpeakName(self, gesture):
+		focus = api.getFocusObject()
+		if shared.isDetailedMessages():
+			message = "Name: {}".format(focus.name)
+		else:
+			message = "{}".format(focus.name)
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(message)
 
-	@script(_("Moves to the object's top-most parent."))
+	@script(description = _("Moves to the object's top-most parent."))
 	def script_MoveToTopParent(self, gesture):
 		parents = filter(lambda p: not p.parent, api.getFocusAncestors())
 		# This is not standard navigation because we jump to the top of the tree.
@@ -255,6 +266,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:f": "GetFontInfo",
 		"kb:h": "SpeakObjectHeight",
 		"kb:l": "SpeakObjectLeftPosition",
+		"kb:n": "SpeakName",
 		"kb:r": "SpeakObjectRightPosition",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",
