@@ -36,7 +36,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(_("Speaks The addon's version number. Press twice quickly to copy to the clipboard."))
 	def script_SpeakVersion(self, gesture):
-		thisAddon = filter(lambda a: a.name == "developerToolkit", addonHandler.getAvailableAddons())[0]
+		thisAddon = list(filter(lambda a: a.name == "developerToolkit", addonHandler.getAvailableAddons()))[0]
 		if shared.isDetailedMessages():
 			message = "{}: {}".format(thisAddon.name, thisAddon.version)
 		else:
@@ -205,7 +205,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	@script(description = _("Moves to the object's top-most parent."))
 	def script_MoveToTopParent(self, gesture):
-		parents = filter(lambda p: not p.parent, api.getFocusAncestors())
+		parents = list(filter(lambda p: not p.parent, api.getFocusAncestors()))
 		# This is not standard navigation because we jump to the top of the tree.
 		if parents:
 			message = shared.NavigateTo("parent", parents[0])
