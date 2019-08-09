@@ -34,6 +34,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		super(GlobalPlugin, self).__init__()
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(dialogs.DtkSettingsPanel)
 
+	def terminate(self):
+		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(dialogs.DtkSettingsPanel)
+
 	@script(_("Speaks The addon's version number. Press twice quickly to copy to the clipboard."))
 	def script_SpeakVersion(self, gesture):
 		thisAddon = list(filter(lambda a: a.name == "developerToolkit", addonHandler.getAvailableAddons()))[0]

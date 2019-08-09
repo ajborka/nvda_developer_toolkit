@@ -49,6 +49,7 @@ The following gestures are available when DTK is enabled.
 * Changed version number to 2020.0 preview to reflect the impending switch to Python 3.
 * Added Python 3 compatibility.
 * Added a new gesture, "n" that speaks the object's name. If one is not assigned, speaks the word 'None' as the object's name.
+* DTK no longer adds duplicate settings panels in the NVDA settings window when reloading add-ons.
 
 ### 2019.1.2
 
