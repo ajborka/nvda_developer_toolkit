@@ -32,6 +32,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
+		config.post_configProfileSwitch.register(self.handleConfigProfileSwitch)
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.append(dialogs.DtkSettingsPanel)
 
 	def terminate(self):
@@ -254,6 +255,15 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 					pass
 			# Rebind features toggle because it was removed.
 			self.bindGesture("kb:alt+windows+k", "ToggleFeatures")
+
+	def handleConfigProfileSwitch(self):
+		if shared.developerToolkitIsEnabled():
+			config.conf["developertoolkit"]["isEnabled"] = True
+			self.__ToggleGestures()
+		else:
+			config.conf["developertoolkit"]["isEnabled"] = False
+			self.__ToggleGestures()
+
 
 	__developerToolkitGestures = {
 		"kb:alt+windows+k": "ToggleFeatures",

@@ -15,6 +15,7 @@ isWebElement = lambda theObject: isinstance(theObject.treeInterceptor, VirtualBu
 developerToolkitIsEnabled = lambda : config.conf["developertoolkit"]["isEnabled"]
 isDetailedMessages = lambda : config.conf["developertoolkit"]["isDetailedMessages"]
 hasLocation = lambda theObject: hasattr(theObject, 'location')
+isParentOf = lambda c, p: c in p.recursiveDescendants
 
 def getSizeAndPosition(theObject):
 	if theObject is not None and hasLocation(theObject):

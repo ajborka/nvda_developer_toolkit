@@ -25,25 +25,22 @@ The following gestures are available when DTK is enabled.
 
 ## Notes
 
-* DTK helps developers create user interfaces. This add-on is not an analytical tool for third-party user interfaces.
-* When using Chrome, not all web elements will appear in the accessibility tree. To force an element to appear in the accessibility tree, give it a title attribute.
-* When using Firefox, phantom elements may appear in the accessibility tree. For example, a text frame may appear as a text block’s container. These phantom elements are a part of Mozilla’s implementation of the accessibility tree.
 * Edge has not been completely tested. Therefore, anything reported by the add-on should be considered with care.
-* In web content, everything except a text block is a container. For instance, a paragraph (p tag) may have multiple elements inside.
-* div tags are reported as a section in HTML5.
 * To avoid names of web elements appearing as "None", always give elements a title attribute.
 * Font information is only available in web content. This should be fixed in a future version.
-* The add-on does not teach a user proper user interface/web content design concepts.
 
 ## Known issues
 
-* Users are not automatically notified of the enabled/disabled state of the add-on's features when switching between windows.
-* The margins of a control are only available in web content, and are browser dependent.
-* The border and padding attributes are not available. This is a long-standing issue.
+* Users are not automatically notified of the enabled/disabled state of the add-on's features when switching between configuration profiles.
 * There is no way to restrict DTK to a specific content type or application window.
 * The font information when pressing F is messy, and will get fixed in a future version.
 
 ## Version history
+### 2020.1.0
+
+* DTK now gracefully handles configuration profile switches.
+* Removed '-preview' from the version number to avoid version number problems with add-on updater.
+
 ### 2020.0 preview
 
 * Changed version number to 2020.0 preview to reflect the impending switch to Python 3.
