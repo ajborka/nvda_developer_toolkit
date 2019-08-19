@@ -6,6 +6,7 @@
 from __future__ import unicode_literals
 import addonHandler
 import globalPluginHandler
+from globalCommands import GlobalCommands as commands
 import config
 import gui
 from scriptHandler import getLastScriptRepeatCount
@@ -29,6 +30,9 @@ config.conf.spec["developertoolkit"] = confspeck
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	scriptCategory = _("Developer toolkit")
+	# Make the most reasonable choice by default.
+	relativeParent = api.getDesktopObject()
+
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
@@ -94,7 +98,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's bottom edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectBottomPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("bottom", focus)
+		message = shared.SpeakSizeAndLocationHelper("bottom", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -103,7 +107,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's left edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectLeftPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("left", focus)
+		message = shared.SpeakSizeAndLocationHelper("left", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -112,7 +116,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's right edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectRightPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("right", focus)
+		message = shared.SpeakSizeAndLocationHelper("right", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -121,7 +125,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectTopPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("top", focus)
+		message = shared.SpeakSizeAndLocationHelper("top", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -142,7 +146,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the focused object's height."))
 	def script_SpeakObjectHeight(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("height", focus)
+		message = shared.SpeakSizeAndLocationHelper("height", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
@@ -167,13 +171,13 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(_("Speaks the focused object's width."))
 	def script_SpeakObjectWidth(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("width", focus)
+		message = shared.SpeakSizeAndLocationHelper("width", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Gets the font information for an object."))
+	@script(description = _("Reports formatting information for an object."))
 	def script_GetFontInfo(self, gesture):
 		focus = api.getFocusObject()
 		formatting = []
@@ -223,7 +227,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		focus = api.getFocusObject()
 		message = shared.NavigateTo("parent", focus.parent)
 		ui.message(message)
-		
 
 	@script(description = _("Moves focus to the next sibling."))
 	def script_MoveToNextSibling(self, gesture):
@@ -264,6 +267,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["developertoolkit"]["isEnabled"] = False
 			self.__ToggleGestures()
 
+	@script(description = _("Sets the relative parent to use in obtaining an object's position."))
+	def script_SetRelativeParent(self, gesture):
+		self.relativeParent = api.getFocusObject()
+		if self.relativeParent:
+			message = "Set to {}".format(self.relativeParent.name)
+		ui.message(message)
 
 	__developerToolkitGestures = {
 		"kb:alt+windows+k": "ToggleFeatures",
@@ -280,6 +289,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:h": "SpeakObjectHeight",
 		"kb:l": "SpeakObjectLeftPosition",
 		"kb:n": "SpeakName",
+		"kb:control+p": "SetRelativeParent",
 		"kb:r": "SpeakObjectRightPosition",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",

@@ -15,38 +15,28 @@ isWebElement = lambda theObject: isinstance(theObject.treeInterceptor, VirtualBu
 developerToolkitIsEnabled = lambda : config.conf["developertoolkit"]["isEnabled"]
 isDetailedMessages = lambda : config.conf["developertoolkit"]["isDetailedMessages"]
 hasLocation = lambda theObject: hasattr(theObject, 'location')
-isParentOf = lambda c, p: c in p.recursiveDescendants
+isFocusAncestor = lambda a: a in api.getFocusAncestors()
 
-def getSizeAndPosition(theObject):
-	if theObject is not None and hasLocation(theObject):
+def getSizeAndPosition(descendant, ancestor):
+	if descendant and not isFocusAncestor(ancestor) and hasLocation(descendant):
 		return {
-			'left':theObject.location.left,
-			'top':theObject.location.top,
-			'right':theObject.location.right,
-			'bottom':theObject.location.bottom,
-			'topLeft':
-				{'x':theObject.location.topLeft.x,
-				'y':theObject.location.topLeft.y,},
-			'topRight':
-				{'x':theObject.location.topRight.x,
-			'y':theObject.location.topRight.y,},
-			'bottomLeft':
-				{'x':theObject.location.bottomLeft.x,
-				'y':theObject.location.bottomLeft.y,},
-			'topRight':
-				{'x':theObject.location.topRight.x,
-				'y':theObject.location.topRight.y,},
-			'bottomRight':
-				{'x':theObject.location.bottomRight.x,
-				'y':theObject.location.bottomRight.y,},
-			'center':
-				{'x':theObject.location.center.x,
-				'y':theObject.location.center.y,},
-			'height':theObject.location.height,
-			'width':theObject.location.width,
+			'left':descendant.location.left,
+			'top':descendant.location.top,
+			'right':descendant.location.right,
+			'bottom':descendant.location.bottom,
+			'height':descendant.location.height,
+			'width':descendant.location.width,
 		}
-	else:
-		return None
+	elif descendant and isFocusAncestor(ancestor) and hasLocation(descendant):
+		return {
+			'left':descendant.location.left - ancestor.location.left,
+			'top':descendant.location.top - ancestor.location.top,
+			'right':descendant.location.right - ancestor.location.left,
+			'bottom':descendant.location.bottom - ancestor.location.top,
+			'height':descendant.location.height,
+			'width':descendant.location.width,
+		}
+
 
 def copyToClipboard(ObjectToCopy):
 	if api.copyToClip(ObjectToCopy):
@@ -60,8 +50,8 @@ def getRoleLabel(theObject):
 	key =theObject.role
 	return roleLabels[key]
 
-def SpeakSizeAndLocationHelper(locationAttribute, theObject):
-	attribute = getSizeAndPosition(theObject)[locationAttribute]
+def SpeakSizeAndLocationHelper(locationAttribute, descendant, ancestor):
+	attribute = getSizeAndPosition(descendant, ancestor)[locationAttribute]
 	if attribute > -1:
 		if isDetailedMessages():
 			return "{} pixels.".format(attribute)
