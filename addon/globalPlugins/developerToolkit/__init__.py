@@ -274,6 +274,20 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = "Set to {}".format(self.relativeParent.name)
 		ui.message(message)
 
+	@script(description = _("Speaks the relative parent's name."))
+	def script_SpeakRelativeParentName(self, gesture):
+		if self.relativeParent:
+			if shared.isDetailedMessages():
+				message = "{} ({})".format(self.relativeParent.name, shared.getRoleLabel(self.relativeParent))
+			else:
+				message = "{}".format(self.relativeParent.name)
+		else:
+			message = "Name not available."
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(message)
+
 	__developerToolkitGestures = {
 		"kb:alt+windows+k": "ToggleFeatures",
 		"kb:leftArrow": "MoveToPreviousSibling",
@@ -290,6 +304,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:l": "SpeakObjectLeftPosition",
 		"kb:n": "SpeakName",
 		"kb:control+p": "SetRelativeParent",
+		"kb:p": "SpeakRelativeParentName",
 		"kb:r": "SpeakObjectRightPosition",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",

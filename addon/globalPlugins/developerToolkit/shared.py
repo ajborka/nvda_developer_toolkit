@@ -18,16 +18,16 @@ hasLocation = lambda theObject: hasattr(theObject, 'location')
 isFocusAncestor = lambda a: a in api.getFocusAncestors()
 
 def getSizeAndPosition(descendant, ancestor):
-	if descendant and not isFocusAncestor(ancestor) and hasLocation(descendant):
-		return {
-			'left':descendant.location.left,
-			'top':descendant.location.top,
-			'right':descendant.location.right,
-			'bottom':descendant.location.bottom,
-			'height':descendant.location.height,
-			'width':descendant.location.width,
-		}
-	elif descendant and isFocusAncestor(ancestor) and hasLocation(descendant):
+	# if descendant and not isFocusAncestor(ancestor) and hasLocation(descendant):
+		# return {
+			# 'left':descendant.location.left,
+			# 'top':descendant.location.top,
+			# 'right':descendant.location.right,
+			# 'bottom':descendant.location.bottom,
+			# 'height':descendant.location.height,
+			# 'width':descendant.location.width,
+		# }
+	if descendant and isFocusAncestor(ancestor) and hasLocation(descendant):
 		return {
 			'left':descendant.location.left - ancestor.location.left,
 			'top':descendant.location.top - ancestor.location.top,

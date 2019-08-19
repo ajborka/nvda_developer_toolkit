@@ -18,6 +18,7 @@ The following gestures are available when DTK is enabled.
 * L - Speak the position of the object’s left edge. Press twice quickly to copy to the clipboard.
 * n - Speak the object's name. Press twice quickly to copy to the clipboard.
 * control+p - Set the relative parent for obtaining size/location of objects.
+* p - Speak the relative parent's name. Press twice quickly to copy to the clipboard.
 * R - Speak the position of the object’s right edge. Press twice quickly to copy to the clipboard.
 * S - Speak the number of siblings relative to the object. Press twice quickly to copy to the clipboard.
 * T - Speak the position of the object’s top edge. Press twice quickly to copy to the clipboard.
@@ -32,6 +33,7 @@ The following gestures are available when DTK is enabled.
 
 ## Known issues
 
+* DTK only honors configuration profiles. It will not automatically disable itself when switching windows.
 * Users are not automatically notified of the enabled/disabled state of the add-on's features when switching between configuration profiles.
 * The font information when pressing F is messy, and will get fixed in a future version.
 
@@ -39,6 +41,7 @@ The following gestures are available when DTK is enabled.
 ### 2020.1.0
 
 * Developers now have the ability to focus on smaller areas of their user interfaces by pressing control+p to set a relative parent. Use a relative parent as a reference point when obtaining size and location information. To use this feature, enable DTK features, navigate to the object to use as a relative parent, then press control+p. Then, return to your work as usual.
+* Press the letter p while working in DTK to obtain the relative parent's name. Press twice quickly to copy to the clipboard.
 * DTK now gracefully handles configuration profile switches.
 * Removed '-preview' from the version number to avoid version number problems with add-on updater.
 
