@@ -122,6 +122,26 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
+	@script(description = _("Speaks the object's right edge location relative to the relative parent's right edge."))
+	def script_SpeakObjectRightPositionToRelativeParentRightPosition(self, gesture):
+		focus = api.getFocusObject()
+		message = shared.SpeakSizeAndLocationHelper("right-right", focus, self.relativeParent)
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(message)
+
+	@script(description = _("Speaks the object's bottom edge relative to the relative parent's bottom edge."))
+	def script_SpeakObjectBottomPositionToRelativeParentBottomPosition(self, gesture):
+		focus = api.getFocusObject()
+		message = shared.SpeakSizeAndLocationHelper("bottom-bottom", focus, self.relativeParent)
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(message)
+
+
+
 	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
 	def script_SpeakObjectTopPosition(self, gesture):
 		focus = api.getFocusObject()
@@ -297,6 +317,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+home": "MoveToTopParent",
 		"kb:a": "SpeakHtmlAttributes",
 		"kb:b": "SpeakObjectBottomPosition",
+		"kb:shift+b": "SpeakObjectBottomPositionToRelativeParentBottomPosition",
 		"kb:c": "SpeakChildCount",
 		"kb:control+d": "ToggleDetailedMessages",
 		"kb:f": "GetFontInfo",
@@ -306,6 +327,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:control+p": "SetRelativeParent",
 		"kb:p": "SpeakRelativeParentName",
 		"kb:r": "SpeakObjectRightPosition",
+		"kb:shift+r": "SpeakObjectRightPositionToRelativeParentRightPosition",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",
 		"kb:v": "SpeakVersion",

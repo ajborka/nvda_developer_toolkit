@@ -8,6 +8,7 @@ import api
 import config
 from controlTypes import roleLabels
 from controlTypes import stateLabels
+import globalPluginHandler
 import ui
 from virtualBuffers import VirtualBuffer
 
@@ -18,21 +19,30 @@ hasLocation = lambda theObject: hasattr(theObject, 'location')
 isFocusAncestor = lambda a: a in api.getFocusAncestors()
 
 def getSizeAndPosition(descendant, ancestor):
-	# if descendant and not isFocusAncestor(ancestor) and hasLocation(descendant):
-		# return {
-			# 'left':descendant.location.left,
-			# 'top':descendant.location.top,
-			# 'right':descendant.location.right,
-			# 'bottom':descendant.location.bottom,
-			# 'height':descendant.location.height,
-			# 'width':descendant.location.width,
-		# }
+	# The relative parent isn't an ancestor of the descendant.
+	if descendant and not isFocusAncestor(ancestor) and hasLocation(descendant):
+		dtk = list(filter(lambda p: isinstance(p, globalPluginHandler.globalPlugins.developerToolkit.GlobalPlugin), globalPluginHandler.runningPlugins))[0]
+		dtk.relativeParent = api.getDesktopObject()
+		return {
+			'left':descendant.location.left,
+			'top':descendant.location.top,
+			'right':descendant.location.right,
+			'bottom':descendant.location.bottom,
+						'bottom-bottom':ancestor.location.bottom - descendant.location.bottom,
+			'right-right':ancestor.location.right - descendant.location.right,
+
+			'height':descendant.location.height,
+			'width':descendant.location.width,
+		}
+	# The relative parent is an ancestor of the descendant.
 	if descendant and isFocusAncestor(ancestor) and hasLocation(descendant):
 		return {
 			'left':descendant.location.left - ancestor.location.left,
 			'top':descendant.location.top - ancestor.location.top,
 			'right':descendant.location.right - ancestor.location.left,
 			'bottom':descendant.location.bottom - ancestor.location.top,
+			'bottom-bottom':ancestor.location.bottom - descendant.location.bottom,
+			'right-right':ancestor.location.right - descendant.location.right,
 			'height':descendant.location.height,
 			'width':descendant.location.width,
 		}
@@ -52,13 +62,10 @@ def getRoleLabel(theObject):
 
 def SpeakSizeAndLocationHelper(locationAttribute, descendant, ancestor):
 	attribute = getSizeAndPosition(descendant, ancestor)[locationAttribute]
-	if attribute > -1:
-		if isDetailedMessages():
-			return "{} pixels.".format(attribute)
-		else:
-			return "{}".format(attribute)
+	if isDetailedMessages():
+		return "{} pixels.".format(attribute)
 	else:
-		return "{} not available.".format(locationAttribute)
+		return "{}".format(attribute)
 
 def NavigateTo(relationship, theObject):
 	if theObject:
