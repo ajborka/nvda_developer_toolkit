@@ -3,7 +3,7 @@
 # A part of Developer toolkit.
 # Copyright 2019 Andy Borka. Released under GPL. See License for details.
 
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 import api
 import config
 from controlTypes import roleLabels
@@ -30,7 +30,6 @@ def getSizeAndPosition(descendant, ancestor):
 			'bottom':descendant.location.bottom,
 						'bottom-bottom':ancestor.location.bottom - descendant.location.bottom,
 			'right-right':ancestor.location.right - descendant.location.right,
-
 			'height':descendant.location.height,
 			'width':descendant.location.width,
 		}
@@ -50,10 +49,10 @@ def getSizeAndPosition(descendant, ancestor):
 
 def copyToClipboard(ObjectToCopy):
 	if api.copyToClip(ObjectToCopy):
-		message = "Copied to clipboard."
+		message = u"Copied to clipboard."
 		ui.message(message)
 	else:
-		message = "Copy faildd."
+		message = u"Copy faildd."
 		ui.message(message)
 
 def getRoleLabel(theObject):
@@ -63,20 +62,20 @@ def getRoleLabel(theObject):
 def SpeakSizeAndLocationHelper(locationAttribute, descendant, ancestor):
 	attribute = getSizeAndPosition(descendant, ancestor)[locationAttribute]
 	if isDetailedMessages():
-		return "{} pixels.".format(attribute)
+		return u"{} pixels.".format(attribute)
 	else:
-		return "{}".format(attribute)
+		return u"{}".format(attribute)
 
 def NavigateTo(relationship, theObject):
 	if theObject:
 		api.setFocusObject(theObject)
 		if isDetailedMessages():
-			return "{}: {}".format(theObject.name, getRoleLabel(theObject))
+			return u"{}: {}".format(theObject.name, getRoleLabel(theObject))
 		else:
-			return "{}".format(theObject.name)
+			return u"{}".format(theObject.name)
 	else:
 		# child relationship doesn't fit the typical plural form of the other relationships.
 		if relationship == "child":
-			return "No more children."
+			return u"No more children."
 		else:
-			return "No more {}s.".format(relationship)
+			return u"No more {}s.".format(relationship)

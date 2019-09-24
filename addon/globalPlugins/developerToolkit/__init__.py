@@ -29,7 +29,7 @@ config.conf.spec["developertoolkit"] = confspeck
 ### global plugin
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
-	scriptCategory = _("Developer toolkit")
+	scriptCategory = u"Developer toolkit"
 	# Make the most reasonable choice by default.
 	relativeParent = api.getDesktopObject()
 
@@ -42,49 +42,49 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	def terminate(self):
 		gui.settingsDialogs.NVDASettingsDialog.categoryClasses.remove(dialogs.DtkSettingsPanel)
 
-	@script(_("Speaks The addon's version number. Press twice quickly to copy to the clipboard."))
+	@script(description = u"Speaks The addon's version number. Press twice quickly to copy to the clipboard.")
 	def script_SpeakVersion(self, gesture):
 		thisAddon = list(filter(lambda a: a.name == "developerToolkit", addonHandler.getAvailableAddons()))[0]
 		if shared.isDetailedMessages():
-			message = "{}: {}".format(thisAddon.name, thisAddon.version)
+			message = u"{}: {}".format(thisAddon.name, thisAddon.version)
 		else:
-			message = "{}".format(thisAddon.version)
+			message = u"{}".format(thisAddon.version)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description = _("Enables or disables Developer toolkit features."),
+	@script(description = u"Enables or disables Developer toolkit features.",
 		gesture = "kb:alt+windows+k")
 	def script_ToggleFeatures(self, gesture):
 		if shared.developerToolkitIsEnabled():
 			config.conf["developertoolkit"]["isEnabled"] = False
 			self.__ToggleGestures()
-			message = "Developer toolkit disabled."
+			message = u"Developer toolkit disabled."
 			ui.message(message)
 		else:
 			config.conf["developertoolkit"]["isEnabled"] = True
 			self.__ToggleGestures()
-			message = "Developer toolkit enabled."
+			message = u"Developer toolkit enabled."
 			ui.message(message)
 
-	@script(_("Enables or disables detailed messages."))
+	@script(description = u"Enables or disables detailed messages.")
 	def script_ToggleDetailedMessages(self, gesture):
 		if shared.isDetailedMessages():
 			config.conf["developertoolkit"]["isDetailedMessages"] = False
-			message = "Detailed messages disabled."
+			message = u"Detailed messages disabled."
 			ui.message(message)
 		else:
 			config.conf["developertoolkit"]["isDetailedMessages"] = True
-			message = "Detailed messages enabled."
+			message = u"Detailed messages enabled."
 			ui.message(message)
 
-	@script(description = _("Speaks the focused element's HTML attributes. Press twice quickly to copy to clipboard."))
+	@script(description = u"Speaks the focused element's HTML attributes. Press twice quickly to copy to clipboard.")
 	def script_SpeakHtmlAttributes(self, gesture):
 		focus = api.getFocusObject()
 		# Make sure we have a web element.
 		if hasattr(focus, 'IA2Attributes') and focus.IA2Attributes and shared.isWebElement(focus):
-			attributes = "\n".join("{}: {}".format(k, v) for k, v in sorted(focus.IA2Attributes.items()))
+			attributes = u"\n".join("{}: {}".format(k, v) for k, v in sorted(focus.IA2Attributes.items()))
 			# Testing how many times the script runs.
 			if getLastScriptRepeatCount() == 0:
 				ui.message(attributes)
@@ -92,87 +92,85 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 				shared.copyToClipboard(attributes)
 		# We are not in a virtual buffer.
 		else:
-			message = "Feature only available in web content."
+			message = u"Feature only available in web content."
 			ui.message(message)
 
-	@script(_("Speaks the position of the object's bottom edge. Press twice quickly to copy to clipboard."))
+	@script(description = u"Speaks the position of the object's bottom edge. Press twice quickly to copy to clipboard.")
 	def script_SpeakObjectBottomPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("bottom", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"bottom", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the position of the object's left edge. Press twice quickly to copy to clipboard."))
+	@script(description = u"Speaks the position of the object's left edge. Press twice quickly to copy to clipboard.")
 	def script_SpeakObjectLeftPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("left", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"left", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the position of the object's right edge. Press twice quickly to copy to clipboard."))
+	@script(description = u"Speaks the position of the object's right edge. Press twice quickly to copy to clipboard.")
 	def script_SpeakObjectRightPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("right", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"right", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description = _("Speaks the object's right edge location relative to the relative parent's right edge."))
+	@script(description = u"Speaks the object's right edge location relative to the relative parent's right edge.")
 	def script_SpeakObjectRightPositionToRelativeParentRightPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("right-right", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"right-right", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description = _("Speaks the object's bottom edge relative to the relative parent's bottom edge."))
+	@script(description = u"Speaks the object's bottom edge relative to the relative parent's bottom edge.")
 	def script_SpeakObjectBottomPositionToRelativeParentBottomPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("bottom-bottom", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"bottom-bottom", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-
-
-	@script(_("Speaks the position of the object's top edge. Press twice quickly to copy to clipboard."))
+	@script(description = u"Speaks the position of the object's top edge. Press twice quickly to copy to clipboard.")
 	def script_SpeakObjectTopPosition(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("top", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"top", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the number of children contained inside the focused object."))
+	@script(description = u"Speaks the number of children contained inside the focused object.")
 	def script_SpeakChildCount(self, gesture):
 		focus = api.getFocusObject()
 		if shared.isDetailedMessages():
-			message = "{} ({}) has {} children".format(focus.name, shared.getRoleLabel(focus), focus.childCount)
+			message = u"{} ({}) has {} children".format(focus.name, shared.getRoleLabel(focus), focus.childCount)
 		elif not shared.isDetailedMessages():
-			message = "{}".format(focus.childCount)
+			message = u"{}".format(focus.childCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the focused object's height."))
+	@script(description = u"Speaks the focused object's height.")
 	def script_SpeakObjectHeight(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("height", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"height", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the number of siblings for the focused object."))
+	@script(description = u"Speaks the number of siblings for the focused object.")
 	def script_SpeakSiblingCount(self, gesture):
 		focus = api.getFocusObject()
 		if focus.parent:
@@ -180,24 +178,24 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif not focus.parent:
 			siblingCount = focus.childCount -1
 		if shared.isDetailedMessages():
-			message = "{} ({}) has {} siblings.".format(focus.name, shared.getRoleLabel(focus), siblingCount)
+			message = u"{} ({}) has {} siblings.".format(focus.name, shared.getRoleLabel(focus), siblingCount)
 		elif not shared.isDetailedMessages():
-			message = "{}".format(siblingCount)
+			message = u"{}".format(siblingCount)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(_("Speaks the focused object's width."))
+	@script(description = u"Speaks the focused object's width.")
 	def script_SpeakObjectWidth(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.SpeakSizeAndLocationHelper("width", focus, self.relativeParent)
+		message = shared.SpeakSizeAndLocationHelper(u"width", focus, self.relativeParent)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description = _("Reports formatting information for an object."))
+	@script(description = u"Reports formatting information for an object.")
 	def script_GetFontInfo(self, gesture):
 		focus = api.getFocusObject()
 		formatting = []
@@ -209,61 +207,61 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			for field in fields:
 				if isinstance (field, textInfos.FieldCommand) and isinstance (field.field, textInfos.FormatField):
 					for key in field.field:
-						formatting += ["{}: {}".format(key, field.field[key])]
-			message = '\n'.join(formatting)
+						formatting += [u"{}: {}".format(key, field.field[key])]
+			message = u"\n".join(formatting)
 			if getLastScriptRepeatCount() == 0:
 				ui.message(message)
 			elif getLastScriptRepeatCount() >= 1:
 				shared.copyToClipboard(message)
 		else:
-			message = "Only available in web content."
+			message = u"Only available in web content."
 			ui.message(message)
 
-	@script(description = _("Speaks the object's name. Press twice quickly to copy to the clipboard."))
+	@script(description = u"Speaks the object's name. Press twice quickly to copy to the clipboard.")
 	def script_SpeakName(self, gesture):
 		focus = api.getFocusObject()
 		if shared.isDetailedMessages():
-			message = "Name: {}".format(focus.name)
+			message = u"Name: {}".format(focus.name)
 		else:
-			message = "{}".format(focus.name)
+			message = u"{}".format(focus.name)
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description = _("Moves to the object's top-most parent."))
+	@script(description = u"Moves to the object's top-most parent.")
 	def script_MoveToTopParent(self, gesture):
 		parents = list(filter(lambda p: not p.parent, api.getFocusAncestors()))
 		# This is not standard navigation because we jump to the top of the tree.
 		if parents:
-			message = shared.NavigateTo("parent", parents[0])
+			message = shared.NavigateTo(u"parent", parents[0])
 			ui.message(message)
 		else:
-			message = "No more parents."
+			message = u"No more parents."
 			ui.message(message)
 
-	@script(description = _("Moves to the focused object's parent."))
+	@script(description = u"Moves to the focused object's parent.")
 	def script_MoveToParent(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.NavigateTo("parent", focus.parent)
+		message = shared.NavigateTo(u"parent", focus.parent)
 		ui.message(message)
 
-	@script(description = _("Moves focus to the next sibling."))
+	@script(description = u"Moves focus to the next sibling.")
 	def script_MoveToNextSibling(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.NavigateTo("sibling", focus.next)
+		message = shared.NavigateTo(u"sibling", focus.next)
 		ui.message(message)
 
-	@script(description = _("Moves focus to the previous sibling."))
+	@script(description = u"Moves focus to the previous sibling.")
 	def script_MoveToPreviousSibling(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.NavigateTo("sibling", focus.previous)
+		message = shared.NavigateTo(u"sibling", focus.previous)
 		ui.message(message)
 
-	@script(_("Move to the focused object's first child."))
+	@script(description = u"Move to the focused object's first child.")
 	def script_MoveToFirstChild(self, gesture):
 		focus = api.getFocusObject()
-		message = shared.NavigateTo("child", focus.firstChild)
+		message = shared.NavigateTo(u"child", focus.firstChild)
 		ui.message(message)
 
 	def __ToggleGestures(self):
@@ -287,22 +285,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			config.conf["developertoolkit"]["isEnabled"] = False
 			self.__ToggleGestures()
 
-	@script(description = _("Sets the relative parent to use in obtaining an object's position."))
+	@script(description = u"Sets the relative parent to use in obtaining an object's position.")
 	def script_SetRelativeParent(self, gesture):
 		self.relativeParent = api.getFocusObject()
 		if self.relativeParent:
-			message = "Set to {}".format(self.relativeParent.name)
+			message = u"Set to {}".format(self.relativeParent.name)
 		ui.message(message)
 
-	@script(description = _("Speaks the relative parent's name."))
+	@script(description = u"Speaks the relative parent's name.")
 	def script_SpeakRelativeParentName(self, gesture):
 		if self.relativeParent:
 			if shared.isDetailedMessages():
-				message = "{} ({})".format(self.relativeParent.name, shared.getRoleLabel(self.relativeParent))
+				message = u"{} ({})".format(self.relativeParent.name, shared.getRoleLabel(self.relativeParent))
 			else:
-				message = "{}".format(self.relativeParent.name)
+				message = u"{}".format(self.relativeParent.name)
 		else:
-			message = "Name not available."
+			message = u"Name not available."
 		if getLastScriptRepeatCount() == 0:
 			ui.message(message)
 		elif getLastScriptRepeatCount() >= 1:

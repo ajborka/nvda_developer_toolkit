@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+#from __future__ import unicode_literals
 import wx
 import gui
 from gui import guiHelper
@@ -7,15 +7,15 @@ import config
 
 ### Dialogs
 class DtkSettingsPanel(gui.SettingsPanel):
-	title = _('Developer toolkit')
+	title = u"Developer toolkit"
 	def makeSettings(self, settingsSizer):
 		self.isEnabled = config.conf["developertoolkit"]["isEnabled"]
 		self.isDetailedMessages = config.conf["developertoolkit"]["isDetailedMessages"]
 		sHelper = gui.guiHelper.BoxSizerHelper(self, sizer = settingsSizer)
 		# Enable or disable the addon.
-		self.isEnabledToggleButton = sHelper.addItem(wx.ToggleButton(self, label = _('Enable Developer toolkit features')))
+		self.isEnabledToggleButton = sHelper.addItem(wx.ToggleButton(self, label = u"Enable Developer toolkit features"))
 		self.isEnabledToggleButton.SetValue(self.isEnabled)
-		self.isDetailedMessagesToggleButton = sHelper.addItem(wx.ToggleButton(self, label = _("Messages are detailed.")))
+		self.isDetailedMessagesToggleButton = sHelper.addItem(wx.ToggleButton(self, label = u"Messages are detailed."))
 		self.isDetailedMessagesToggleButton.SetValue(self.isDetailedMessages)
 
 	def onSave(self):
