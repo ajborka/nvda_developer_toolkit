@@ -43,6 +43,10 @@ The following gestures are available when DTK is enabled.
 * The font information when pressing F is messy, and will get fixed in a future version.
 
 ## Version history
+### 2020.1.1
+
+* Improved unicode support.
+
 ### 2020.1.0
 
 * Developers now have the ability to focus on smaller areas of their user interfaces by pressing CTRL+p to set a relative parent. Use a relative parent as a reference point when obtaining size and location information. To use this feature, enable DTK features, navigate to the object to use as a relative parent, then press CTRL+p. Then, return to your work as usual.
