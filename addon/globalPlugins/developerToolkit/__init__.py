@@ -57,6 +57,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(description = u"Enables or disables Developer toolkit features.",
 		gesture = "kb:alt+windows+k")
 	def script_ToggleFeatures(self, gesture):
+		focus = api.getNavigatorObject()
 		if shared.developerToolkitIsEnabled():
 			config.conf["developertoolkit"]["isEnabled"] = False
 			self.__ToggleGestures()
@@ -64,6 +65,8 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			ui.message(message)
 		else:
 			config.conf["developertoolkit"]["isEnabled"] = True
+			if shared.isWebElement(focus):
+				shared.NavigateTo(None, focus)
 			self.__ToggleGestures()
 			message = u"Developer toolkit enabled."
 			ui.message(message)
