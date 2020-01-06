@@ -1,4 +1,8 @@
-#from __future__ import unicode_literals
+# dialogs.py
+# User interface elements for Developer toolkit.
+# A part of Developer toolkit.
+# Copyright 2019 - 2020 Andy Borka. Released under GPL. See License for details.
+
 import wx
 from wx.adv import EditableListBox
 import gui

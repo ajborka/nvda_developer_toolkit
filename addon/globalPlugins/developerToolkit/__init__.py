@@ -1,9 +1,7 @@
-# -*- coding: UTF-8 -*-
 # Developer toolkit: Helps blind and visually impaired developers create appealing user interfaces.
-# __init__.py: global plugin startup code.
-# Copyright 2019 Andy Borka. Licensed under GPL2.
+# __init__.py: global plugin features.
+# Copyright 2019 - 2020 Andy Borka. Licensed under GPL2.
 
-from __future__ import unicode_literals
 import addonHandler
 import globalPluginHandler
 from globalCommands import GlobalCommands as commands

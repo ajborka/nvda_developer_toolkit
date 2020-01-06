@@ -1,9 +1,8 @@
 # shared.py
 # Shared library for Developer toolkit.
 # A part of Developer toolkit.
-# Copyright 2019 Andy Borka. Released under GPL. See License for details.
+# Copyright 2019 - 2020 Andy Borka. Released under GPL. See License for details.
 
-#from __future__ import unicode_literals
 import api
 from colors import RGB
 import config
