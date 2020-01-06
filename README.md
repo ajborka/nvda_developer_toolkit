@@ -56,8 +56,8 @@ The following gestures are available when DTK is enabled.
 	* Move an attribute up in the list by selecting it and pressing the 'Move up' button. Repeat this until it reaches the desired location in the list.
 	* Move an attribute down in the list by selecting it and pressing the 'Move down' button. Repeat this until it reaches the desired location in the list.
 * Users now have the ability to change the way color values are displayed while obtaining formatting information. The setting is found in preferences>settings>Developer toolkit, then choosing a color display format. The color display format can also be changed by pressing control+c while Developer toolkit features are enabled.
-	* **RGB** - Red Green Blue value. Defines a color through a red, green, blue color combination. Good for graphic art, especially non-web safe colors.
-	* **Hex** - string starting with a '#' and followed by 6 characters consiting of 1-0 and A-F. Usually good for web content.
+	* **RGB** - Red/Green/Blue value. Defines a color through a red, green, blue color combination. Good for graphic art, especially non-web safe colors.
+	* **Hex** - string starting with a '#' and followed by 6 characters consisting of 1-0 and A-F. Usually good for web content.
 	* **Name** - The human readable value for the color. Good for general purpose usage and verifying other color value formats.
 
 ### 2020.1.1
