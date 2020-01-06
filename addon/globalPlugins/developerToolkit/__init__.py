@@ -22,6 +22,8 @@ import textInfos
 confspeck = {
 	"isEnabled": "boolean(default = False)",
 	"isDetailedMessages": "boolean(default = True)",
+	"fontInfo": "string_list(default= list('font-family', 'font-size', 'color', 'background-color'))",
+	"displayColorFormat": "integer(min = 0, max = 2, default = 0)",
 }
 config.conf.spec["developertoolkit"] = confspeck
 
@@ -164,6 +166,22 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
+	@script(description = u"Changes the way color values are displayed.")
+	def script_ChangeColorValueFormat(self, gesture):
+		"""Changes the way color values are displayed.
+		Options include: 0 for RGB, 1 for Hex, and 2 for Name."""
+		if shared.colorAsRGB():
+			config.conf["developertoolkit"]["displayColorFormat"] = 1
+			mesage = u"Display color values as Hex."
+		elif shared.colorAsHex():
+			config.conf["developertoolkit"]["displayColorFormat"] = 2
+			mesage = u"Display color values as Name."
+		elif shared.colorAsName():
+			config.conf["developertoolkit"]["displayColorFormat"] = 0
+			mesage = u"Display color values as RGB."
+		ui.message(mesage)
+		
+
 	@script(description = u"Speaks the focused object's height.")
 	def script_SpeakObjectHeight(self, gesture):
 		focus = api.getFocusObject()
@@ -203,14 +221,46 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		focus = api.getFocusObject()
 		formatting = []
 		if shared.isWebElement(focus):
-			tree = focus.treeInterceptor
-			info = tree.makeTextInfo(textInfos.POSITION_ALL)
+			info = focus.makeTextInfo(textInfos.POSITION_CARET)
 			info.expand(textInfos.UNIT_CHARACTER)
 			fields = info.getTextWithFields()
 			for field in fields:
 				if isinstance (field, textInfos.FieldCommand) and isinstance (field.field, textInfos.FormatField):
-					for key in field.field:
-						formatting += [u"{}: {}".format(key, field.field[key])]
+					for key in config.conf["developertoolkit"]["fontInfo"]:
+						try:
+							if shared.isDetailedMessages():
+								# Specialized color formatting rules.
+								if shared.isColor(field.field[key]):
+									if shared.colorAsName():
+										formatting.append(u"{}: {}".format(key, field.field[key].name))
+									elif shared.colorAsHex():
+										formatting.append(u"{}: #{:02x}{:02x}{:02x}".format(key, field.field[key].red, field.field[key].green, field.field[key].blue))
+									elif shared.colorAsRGB():
+										formatting .append(u"{}: {}".format(key, field.field[key]))
+								# There are no more specialized formatting rules to apply.
+								else:
+									formatting .append(u"{}: {}".format(key, field.field[key]))
+							# Formatting rules to apply when detailed messages is disabled.
+							else:
+								# Specialized rules to apply when the formatting fields have True/False values such as bold, italic, underline.
+								if shared.isBool(field.field[key]):
+									if field.field[key] == True:
+										formatting.append(u"{}".format(key))
+									else:
+										pass
+								# The formatting rules for color values.
+								elif shared.isColor(field.field[key]):
+									if shared.colorAsName():
+										formatting.append(u"{}".format(field.field[key].name))
+									elif shared.colorAsHex():
+										formatting.append(u"#{:02x}{:02x}{:02x}".format(field.field[key].red, field.field[key].green, field.field[key].blue))
+									elif shared.colorAsRGB():
+										formatting.append(u"RGB({}, {}, {})".format(field.field[key].red, field.field[key].green, field.field[key].blue))
+								# There are no more formatting rules to follow.
+								else:
+									formatting.append(u"{}".format(field.field[key]))
+						except KeyError:
+							pass
 			message = u"\n".join(formatting)
 			if getLastScriptRepeatCount() == 0:
 				ui.message(message)
@@ -320,6 +370,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:b": "SpeakObjectBottomPosition",
 		"kb:shift+b": "SpeakObjectBottomPositionToRelativeParentBottomPosition",
 		"kb:c": "SpeakChildCount",
+		"kb:control+c": "ChangeColorValueFormat",
 		"kb:control+d": "ToggleDetailedMessages",
 		"kb:f": "GetFontInfo",
 		"kb:h": "SpeakObjectHeight",

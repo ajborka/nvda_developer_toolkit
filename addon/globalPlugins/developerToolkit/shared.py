@@ -5,6 +5,7 @@
 
 #from __future__ import unicode_literals
 import api
+from colors import RGB
 import config
 from controlTypes import roleLabels
 from controlTypes import stateLabels
@@ -17,6 +18,12 @@ developerToolkitIsEnabled = lambda : config.conf["developertoolkit"]["isEnabled"
 isDetailedMessages = lambda : config.conf["developertoolkit"]["isDetailedMessages"]
 hasLocation = lambda theObject: hasattr(theObject, 'location')
 isFocusAncestor = lambda a: a in api.getFocusAncestors()
+colorAsRGB = lambda : config.conf["developertoolkit"]["displayColorFormat"] == 0
+colorAsHex = lambda : config.conf["developertoolkit"]["displayColorFormat"] == 1
+colorAsName = lambda : config.conf["developertoolkit"]["displayColorFormat"] == 2
+isColor = lambda x: isinstance(x, RGB)
+isBool = lambda x: isinstance(x, bool)
+
 
 def getSizeAndPosition(descendant, ancestor):
 	# The relative parent isn't an ancestor of the descendant.
