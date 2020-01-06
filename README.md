@@ -15,6 +15,7 @@ The following gestures are available when DTK is enabled.
 * **B** - Speak the position of the object's bottom edge. Press twice quickly to copy to the clipboard.
 * **SHIFT+B** - Speak the distance between the object's bottom edge and the relative parent's bottom edge. Press twice quickly to copy to the clipboard.
 * **C** - Speak the number of children contained inside the object. Press twice quickly to copy to the clipboard.
+* **control+c** - Switch between RGB, Hex, and Name color values.
 * **CTRL+D** - Enable or disable detailed messages.
 * **F** - In web content, speaks the object's font and formatting information. Press twice quickly to copy to the clipboard.
 * **H** - Speak the object's height. Press twice quickly to copy to the clipboard.
@@ -35,14 +36,30 @@ The following gestures are available when DTK is enabled.
 	* The focused object and the relative parent are the same.
 	* The relative parent is not a direct ancestor of the focused object.
 * DTK does not support the Edge web browser.
-* Font information is only available in web content. This should be fixed in a future version.
+* Until NVDA provides font information from more sources, font information is only available in web content.
 
 ## Known issues
 
 * DTK does not automatically notify you of the enabled or disabled state of its features when switching between configuration profiles.
-* The font information when pressing F is messy, and will get fixed in a future version.
+* The customizable list of font attributes found in Developer toolkit settings may be cumbersome to use. This is a limitation found in NVDA's user interface library.
 
 ## Version history
+### 2020.2
+
+* Starting DTK retains the cursor’s current position in web content. If the object under the caret can’t gain focus, DTK will place focus on the first available ancestor.
+* Removed legacy support for unicode strings.
+* Removed the enable/disable Developer toolkit features setting from Developer toolkit settings dialog found in NVDA menu>preferences>settings. Users can still enable/disable features by pressing alt+windows+k.
+* The formatting attributes obtained by pressing 'f' when Developer toolkit is enabled is now configurable in preferences>settings>Developer toolkit.
+	* Add new formatting attributes by pressing the 'new attribute' button. Type in a name of a valid formatting attribute, press tab to put it in the list, then press escape to leave edit mode.
+	* Remove an attribute by selecting it in the list, then pressing the 'delete attribute' button.
+	* Rename an attribute by pressing the 'Rename attribute' button, typing a new name, pressing tab to put it in the list, then pressing escape to leave edit mode.
+	* Move an attribute up in the list by selecting it and pressing the 'Move up' button. Repeat this until it reaches the desired location in the list.
+	* Move an attribute down in the list by selecting it and pressing the 'Move down' button. Repeat this until it reaches the desired location in the list.
+* Users now have the ability to change the way color values are displayed while obtaining formatting information. The setting is found in preferences>settings>Developer toolkit, then choosing a color display format. The color display format can also be changed by pressing control+c while Developer toolkit features are enabled.
+	* **RGB** - Red Green Blue value. Defines a color through a red, green, blue color combination. Good for graphic art, especially non-web safe colors.
+	* **Hex** - string starting with a '#' and followed by 6 characters consiting of 1-0 and A-F. Usually good for web content.
+	* **Name** - The human readable value for the color. Good for general purpose usage and verifying other color value formats.
+
 ### 2020.1.1
 
 * Improved unicode support.
