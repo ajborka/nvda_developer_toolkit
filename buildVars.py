@@ -39,7 +39,8 @@ import os.path
 
 # Define the python files that are the sources of your add-on.
 # You can use glob expressions here, they will be expanded.
-pythonSources = ["globalPlugins/developerToolkit/__init__.py", "globalPlugins/developerToolkit/dialogs.py", "globalPlugins/developerToolkit/shared.py",]
+pythonSources = ["globalPlugins/developerToolkit/*",]
+# "globalPlugins/developerToolkit/dialogs.py", "globalPlugins/developerToolkit/shared.py",]
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources = pythonSources + ["buildVars.py"]
