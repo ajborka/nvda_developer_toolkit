@@ -2,12 +2,6 @@
 # __init__.py: global plugin features.
 # Copyright 2019 - 2020 Andy Borka. Licensed under GPL2.
 
-import os
-import sys
-LIBRARY_PATH= 'lib'
-SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, LIBRARY_PATH)))
-
 import addonHandler
 import globalPluginHandler
 from globalCommands import GlobalCommands as commands
@@ -78,7 +72,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			self.__ToggleGestures()
 			message = u"Developer toolkit enabled."
 			ui.message(message)
-			ui.message(importMsg)
 
 	@script(description=u"Enables or disables detailed messages.")
 	def script_ToggleDetailedMessages(self, gesture):
