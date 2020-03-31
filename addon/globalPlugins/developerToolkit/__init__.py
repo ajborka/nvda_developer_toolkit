@@ -174,6 +174,23 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
+	@script(description = u"Speaks the object's role or control type.")
+	def script_SpeakRole(self, gesture):
+		focus = api.getFocusObject()
+		label = shared.getRoleLabel(focus)
+		if not label:
+			mesage = u"Role or control type not available!"
+		else:
+			if shared.isDetailedMessages():
+				mesage = u"Role: {}".format(label)
+			else:
+				mesage = u"{}".format(label)
+		if getLastScriptRepeatCount() == 0:
+			ui.message(mesage)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(mesage)
+
+
 	@script(description=u"Changes the way color values are displayed.")
 	def script_ChangeColorValueFormat(self, gesture):
 		"""Changes the way color values are displayed.
@@ -417,6 +434,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:p": "SpeakRelativeParentName",
 		"kb:r": "SpeakObjectRightPosition",
 		"kb:shift+r": "SpeakObjectRightPositionToRelativeParentRightPosition",
+		"kb:alt+r": "SpeakRole",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",
 		"kb:u": "SpeakUniqueID",
