@@ -25,6 +25,7 @@ The following gestures are available when DTK is enabled.
 * **P** - Speak the relative parent's name. Press twice quickly to copy to the clipboard.
 * **R** - Speak the position of the object's right edge. Press twice quickly to copy to the clipboard.
 * **SHIFT+R** - Speak the distance between the object's right edge and the relative parent's right edge. Press twice quickly to copy to the clipboard.
+* **ALT+R** - Speak the object's Role/control type. Press twice quickly to copy it to the clipboard.
 * **S** - Speak the number of siblings relative to the object. Press twice quickly to copy to the clipboard.
 * **T** - Speak the position of the object's top edge. Press twice quickly to copy to the clipboard.
 * **V** - Speak Developer toolkit version. Press twice quickly to copy to the clipboard.
@@ -35,12 +36,10 @@ The following gestures are available when DTK is enabled.
 * When using the relative parent feature, DTK will set the relative parent to the desktop under the following conditions.
 	* The focused object and the relative parent are the same.
 	* The relative parent is not a direct ancestor of the focused object.
-* DTK does not support the Edge web browser.
 * Until NVDA provides font information from more sources, font information is only available in web content.
 
 ## Known issues
 
-* DTK does not automatically notify you of the enabled or disabled state of its features when switching between configuration profiles.
 * The customizable list of font attributes found in Developer toolkit settings may be cumbersome to use. This is a limitation found in NVDA's user interface library.
 
 ## Version history
