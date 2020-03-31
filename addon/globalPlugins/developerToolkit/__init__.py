@@ -395,24 +395,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
-	@script(description=u"Obtains the unique ID for the focused object.")
-	def script_SpeakUniqueID(self, gesture):
-		focus = api.getFocusObject()
-		
-		if focus.IA2UniqueID:
-			if shared.isDetailedMessages():
-				mesage = u"Unique ID: {}".format(focus.IA2UniqueID)
-			else:
-				mesage = u"{}".format(focus.IA2UniqueID)
-		else:
-			mesage = u"Not available."
-
-		if getLastScriptRepeatCount() == 0:
-			ui.mesage(mesage)
-		elif getLastScriptRepeatCount() >= 1:
-			shared.copyToClipboard(mesage)
-
-
 	__developerToolkitGestures = {
 		"kb:alt+windows+k": "ToggleFeatures",
 		"kb:leftArrow": "MoveToPreviousSibling",
@@ -437,7 +419,6 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:alt+r": "SpeakRole",
 		"kb:s": "SpeakSiblingCount",
 		"kb:t": "SpeakObjectTopPosition",
-		"kb:u": "SpeakUniqueID",
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",
 	}
