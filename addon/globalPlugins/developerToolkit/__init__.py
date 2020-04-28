@@ -190,7 +190,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(mesage)
 
-
+	@script(description = u"Speaks the object's control states. Press twice quickly to copy to the clipboard.")
+	def script_SpeakStates(self, gesture):
+		focus = api.getFocusObject()
+		controlStates = shared.getStateLabels(focus)
+		if len(controlStates) == 0:
+			message = u"The control's states are not available!"
+		elif len(controlStates) >= 1:
+			message = u"\n".join(controlStates)
+		if getLastScriptRepeatCount() == 0:
+			ui.message(message)
+		elif getLastScriptRepeatCount() >= 1:
+			shared.copyToClipboard(message)
+			
 	@script(description=u"Changes the way color values are displayed.")
 	def script_ChangeColorValueFormat(self, gesture):
 		"""Changes the way color values are displayed.
@@ -418,6 +430,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+r": "SpeakObjectRightPositionToRelativeParentRightPosition",
 		"kb:alt+r": "SpeakRole",
 		"kb:s": "SpeakSiblingCount",
+		"kb:shift+s": "SpeakStates",
 		"kb:t": "SpeakObjectTopPosition",
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",

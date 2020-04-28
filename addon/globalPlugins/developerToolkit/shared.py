@@ -65,6 +65,14 @@ def getRoleLabel(theObject):
 	key =theObject.role
 	return roleLabels[key]
 
+def getStateLabels(theObject):
+	states = []
+	for state in theObject.states:
+		states.append(stateLabels[state])
+	states.sort()
+	return states
+
+
 def SpeakSizeAndLocationHelper(locationAttribute, descendant, ancestor):
 	attribute = getSizeAndPosition(descendant, ancestor)[locationAttribute]
 	if isDetailedMessages():
