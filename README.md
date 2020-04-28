@@ -27,6 +27,7 @@ The following gestures are available when DTK is enabled.
 * **SHIFT+R** - Speak the distance between the object's right edge and the relative parent's right edge. Press twice quickly to copy to the clipboard.
 * **ALT+R** - Speak the object's Role/control type. Press twice quickly to copy it to the clipboard.
 * **S** - Speak the number of siblings relative to the object. Press twice quickly to copy to the clipboard.
+* **SHIFT+S** - Speak the object's control states. Press twice quickly to copy it to the clipboard.
 * **T** - Speak the position of the object's top edge. Press twice quickly to copy to the clipboard.
 * **V** - Speak Developer toolkit version. Press twice quickly to copy to the clipboard.
 * **W** - Speak the object's width. Press twice quickly to copy to the clipboard.
@@ -36,13 +37,20 @@ The following gestures are available when DTK is enabled.
 * When using the relative parent feature, DTK will set the relative parent to the desktop under the following conditions.
 	* The focused object and the relative parent are the same.
 	* The relative parent is not a direct ancestor of the focused object.
-* Until NVDA provides font information from more sources, font information is only available in web content.
+* DTK cannot access information such as CSS rules, padding, borders, or z-index. Doing so requires accessing them outside of the NVDA context, which presents a security concern for users.
 
 ## Known issues
 
 * The customizable list of font attributes found in Developer toolkit settings may be cumbersome to use. This is a limitation found in NVDA's user interface library.
 
 ## Version history
+
+### 20.03
+* Added a gesture (ALT+R) that obtains the currently focused object's control type. Examples include button, listitem, list, checkbox, and section.
+* Added a gesture (SHIFT+S) that obtains the currently focused object's control states. Examples include focused, focusable, selected, checked, pressed, and readonly.
+* Removed support for IAccessible's unique ID because it is not reliable in most contexts.
+* Abbreviated the version number to xx.yy where xx is the last two digits of the current year, and yy is the update number for the current year. Thus 20.03 is the third major update in 2020.
+
 ### 2020.2
 
 * Starting DTK retains the cursor’s current position in web content. If the object under the caret can’t gain focus, DTK will place focus on the first available ancestor.
