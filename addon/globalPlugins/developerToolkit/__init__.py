@@ -340,6 +340,11 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			message = u"No more parents."
 			ui.message(message)
 
+	@script(description = u'Moves to the relative parent.')
+	def script_MoveToRelativeParent(self, gesture):
+		message = shared.NavigateTo(u'parent', self.relativeParent)
+		ui.message(message)
+
 	@script(description=u"Moves to the focused object's parent.")
 	def script_MoveToParent(self, gesture):
 		focus = api.getFocusObject()
@@ -413,6 +418,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:rightArrow": "MoveToNextSibling",
 		"kb:upArrow": "MoveToParent",
 		"kb:downArrow": "MoveToFirstChild",
+		"kb:home": "MoveToRelativeParent",
 		"kb:control+home": "MoveToTopParent",
 		"kb:a": "SpeakHtmlAttributes",
 		"kb:b": "SpeakObjectBottomPosition",
