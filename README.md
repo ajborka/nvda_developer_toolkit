@@ -11,6 +11,7 @@ The following gestures are available when DTK is enabled.
 * **UP ARROW** - Move to parent.
 * **DOWN ARROW** - Move to first child.
 * **CTRL+HOME** - Move to top-most parent.
+* **HOME** - Move to the relative parent if one is assigned.
 * **A** - In web content, speak HTML attributes. Press twice quickly to copy to the clipboard.
 * **B** - Speak the position of the object's bottom edge. Press twice quickly to copy to the clipboard.
 * **SHIFT+B** - Speak the distance between the object's bottom edge and the relative parent's bottom edge. Press twice quickly to copy to the clipboard.
@@ -34,6 +35,7 @@ The following gestures are available when DTK is enabled.
 
 ## Notes
 
+* When using home or any modified version of the home key, using the numpad home key fails because NVDA will send the numpad7 keypress instead of a numpadHome keypress. Other keyboard add-ons that attempt to reassign numpad7 to the home key will fail in this add-on.
 * When using the relative parent feature, DTK will set the relative parent to the desktop under the following conditions.
 	* The focused object and the relative parent are the same.
 	* The relative parent is not a direct ancestor of the focused object.
@@ -44,6 +46,10 @@ The following gestures are available when DTK is enabled.
 * The customizable list of font attributes found in Developer toolkit settings may be cumbersome to use. This is a limitation found in NVDA's user interface library.
 
 ## Version history
+
+### 20.04
+
+* Added a gesture (home) that gives the ability to move to the defined relative parent.
 
 ### 20.03
 * Added a gesture (ALT+R) that obtains the currently focused object's control type. Examples include button, listitem, list, checkbox, and section.

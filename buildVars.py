@@ -19,7 +19,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	"addon_description" : _("""An NVDA addon that assists blind and visually impaired developers with creating visually appealing user interfaces."""),
 	# version
-	"addon_version" : "20.03",
+	"addon_version" : "20.04",
 	# Author(s)
 	"addon_author" : u"Andy Borka <ajborka@gmail.com>",
 	# URL for the add-on documentation support
