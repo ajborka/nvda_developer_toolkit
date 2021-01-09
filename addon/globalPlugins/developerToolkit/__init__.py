@@ -412,6 +412,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif getLastScriptRepeatCount() >= 1:
 			shared.copyToClipboard(message)
 
+	@script(description=u"Brief help on available features")
+	def script_help(self, gesture):
+		messages = []
+		for attr in dir(self):
+			if attr.lower().startswith("script_"):
+				message = getattr(self, attr).__doc__
+				attr = attr.replace('script_', '')
+				for gest,func in self.__developerToolkitGestures.items():
+					if attr==func:
+						message = f"{gest.replace('kb:', '')} - {message}"
+				messages.append(message)
+		ui.browseableMessage('\n'.join(messages), self.script_help.__doc__, False)
+
 	__developerToolkitGestures = {
 		"kb:alt+windows+k": "ToggleFeatures",
 		"kb:leftArrow": "MoveToPreviousSibling",
@@ -440,4 +453,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:t": "SpeakObjectTopPosition",
 		"kb:v": "SpeakVersion",
 		"kb:w": "SpeakObjectWidth",
+		"kb:`": "help",
 	}
