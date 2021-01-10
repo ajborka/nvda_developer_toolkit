@@ -415,14 +415,12 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 	@script(description=u"Brief help on available features")
 	def script_help(self, gesture):
 		messages = []
-		for attr in dir(self):
-			if attr.lower().startswith("script_"):
+		attrs = [attr for attr in dir(self) if attr.lower().startswith("script_")]
+		for gest,func in self.__developerToolkitGestures.items():
+			for attr in attrs:
 				message = getattr(self, attr).__doc__
-				attr = attr.replace('script_', '')
-				for gest,func in self.__developerToolkitGestures.items():
-					if attr==func:
-						message = f"{gest.replace('kb:', '')} - {message}"
-				messages.append(message)
+				if attr.replace('script_', '')==func:
+					messages.append(f"{gest.replace('kb:', '')} - {message}")
 		ui.browseableMessage('\n'.join(messages), self.script_help.__doc__, False)
 
 	__developerToolkitGestures = {
@@ -452,6 +450,5 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		"kb:shift+s": "SpeakStates",
 		"kb:t": "SpeakObjectTopPosition",
 		"kb:v": "SpeakVersion",
-		"kb:w": "SpeakObjectWidth",
 		"kb:`": "help",
 	}
