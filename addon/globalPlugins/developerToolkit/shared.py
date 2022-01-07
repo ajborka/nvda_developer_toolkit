@@ -6,8 +6,8 @@
 import api
 from colors import RGB
 import config
-from controlTypes import roleLabels
-from controlTypes import stateLabels
+from controlTypes.role import _roleLabels
+from controlTypes.state import _stateLabels
 import globalPluginHandler
 import ui
 from virtualBuffers import VirtualBuffer
@@ -63,12 +63,12 @@ def copyToClipboard(ObjectToCopy):
 
 def getRoleLabel(theObject):
 	key =theObject.role
-	return roleLabels[key]
+	return _roleLabels[key]
 
 def getStateLabels(theObject):
 	states = []
 	for state in theObject.states:
-		states.append(stateLabels[state])
+		states.append(_stateLabels[state])
 	states.sort()
 	return states
 

@@ -47,6 +47,14 @@ The following gestures are available when DTK is enabled.
 
 ## Version history
 
+### 20.06
+
+* Updated to use NVDA's new control types library.
+
+### 20.05
+
+* Updated to work with current versions of NVDA.
+
 ### 20.04
 
 * Added a gesture (home) that gives the ability to move to the defined relative parent.
