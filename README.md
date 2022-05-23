@@ -47,6 +47,12 @@ The following gestures are available when DTK is enabled.
 
 ## Version history
 
+### 22.1.5
+
+* New versioning scheme xx.yy.zz where xx = Major NVDA version, yy = NVDA minor version, and zz = Developer toolkit revision number (month of the current year).
+* Updated to work with NVDA 2022.1 and later.
+* Older versions of NVDA prior to 2022.1 are no longer supported.
+
 ### 20.06
 
 * Updated to use NVDA's new control types library.
